@@ -2,10 +2,17 @@ package Presentacion;
 
 import Aplicacion.AplicacionException;
 import Aplicacion.LogicCliente;
+import Aplicacion.LogicMoto;
 import Aplicacion.LogicUsuario;
+import Aplicacion.Modelo.Cliente;
+import Aplicacion.Modelo.Moto;
 import Aplicacion.Modelo.Usuario;
 import java.io.IOException;
 import java.net.URL;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,7 +49,7 @@ public class AdministrarUsuariosController implements Initializable {
     @FXML
     private ChoiceBox choiceTipo;
     @FXML
-    private TableView tvUsuarios;
+    private TableView<Usuario> tvUsuarios;
     @FXML
     private TableColumn colUsuario, colContraseña, colTipo;
     @FXML
@@ -87,19 +94,44 @@ public class AdministrarUsuariosController implements Initializable {
     }
 
     @FXML
-    private void btnEliminarAction(ActionEvent event) {
+    private void btnEliminarAction(ActionEvent event) throws AplicacionException {
+
+        Usuario u = tvUsuarios.getSelectionModel().getSelectedItem();
+
+        if (u != null) {
+            LogicUsuario.eliminar(u);
+            mostrarUsuarios();
+        } else {
+            mostrarError("Selecciona un cliente!");
+        }
     }
 
     @FXML
-    private void btnActualizarAction(ActionEvent event) {
+    private void btnActualizarAction(ActionEvent event) throws AplicacionException {
+        Usuario u1 = tvUsuarios.getSelectionModel().getSelectedItem();
+
+        if (u1 != null) {
+            Usuario u2 = new Usuario(fieldUsuario.getText(), fieldContraseña.getText(), choiceTipo.getSelectionModel().getSelectedItem().toString());
+
+            LogicUsuario.actualizar(u2);
+            mostrarUsuarios();
+        } else {
+            mostrarError("Selecciona un cliente!");
+        }
     }
 
     @FXML
     private void btnLimpiarAction(ActionEvent event) {
+        limpiarCampos();
     }
 
     @FXML
     private void onMouseClickedTableClientes(MouseEvent event) {
+        Usuario usuario = tvUsuarios.getSelectionModel().getSelectedItem();
+
+        if (usuario != null) {
+            setUsuarioToView(usuario);
+        }
     }
 
     private void LoginSucces(Node source) {
@@ -140,4 +172,10 @@ public class AdministrarUsuariosController implements Initializable {
         alert.showAndWait();
     }
 
+    private void setUsuarioToView(Usuario u) {
+
+        fieldUsuario.setText(u.getUsuario());
+        fieldContraseña.setText(u.getContraseña());
+        choiceTipo.setValue(u.getTipo());
+    }
 }
