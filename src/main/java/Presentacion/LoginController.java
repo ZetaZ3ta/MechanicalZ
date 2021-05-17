@@ -2,6 +2,8 @@ package Presentacion;
 
 import Aplicacion.AplicacionException;
 import Aplicacion.LogicLogin;
+import Aplicacion.LogicUsuario;
+import Aplicacion.Modelo.Usuario;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -14,7 +16,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -84,8 +85,19 @@ public class LoginController implements Initializable {
     }
 
     private void LoginSucces(Node source) {
+
+        String escena;
+
+        Usuario u = LogicUsuario.getUsuario(fieldUsuario.getText());
+
+        if (u.getTipo().equalsIgnoreCase("Admin")) {
+            escena = "PrincipalAdmin.fxml";
+        } else {
+            escena = "PantallaPrincipal.fxml";
+        }
+
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/PrincipalAdmin.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + escena));
             Parent root = loader.load();
             Scene scene = new Scene(root);
             Stage stage = new Stage();

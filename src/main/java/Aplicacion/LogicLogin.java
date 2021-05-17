@@ -11,7 +11,7 @@ public class LogicLogin {
 
     public static void verificarLogin(String usuario, String contraseña) throws AplicacionException {
 
-        Usuario user = UsuarioBD.getUsuario(usuario, contraseña);
+        Usuario user = UsuarioBD.getUsuario(usuario);
 
         System.out.println(usuario + " " + contraseña);
 

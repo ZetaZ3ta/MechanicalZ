@@ -38,7 +38,9 @@
          <children>
             <Button mnemonicParsing="false" onAction="#btnAdminUsuariosAction" prefHeight="40.0" text="Administrar Usuarios" />
             <Separator orientation="VERTICAL" prefHeight="200.0" />
-            <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnAdminServiciosAction" prefHeight="40.0" text="Administrar Servicios" />
+            <Button layoutX="326.0" layoutY="18.0" mnemonicParsing="false" onAction="#btnAdminMecanicosAction" prefHeight="40.0" text="Administrar Mecanicos" />
+            <Separator layoutX="453.0" layoutY="10.0" orientation="VERTICAL" prefHeight="200.0" />
+            <Button disable="true" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#btnAdminServiciosAction" prefHeight="40.0" text="Administrar Servicios" />
          </children>
       </HBox>
    </children>

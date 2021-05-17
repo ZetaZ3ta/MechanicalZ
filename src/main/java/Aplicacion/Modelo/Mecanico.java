@@ -40,6 +40,10 @@ public class Mecanico {
         this.Ocupado = Ocupado;
     }
 
+    public Mecanico() {
+
+    }
+
     public String getDNI() {
         return DNI;
     }

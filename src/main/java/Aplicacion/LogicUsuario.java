@@ -39,4 +39,9 @@ public class LogicUsuario {
 
     }
 
+    public static Usuario getUsuario(String usuario) {
+
+        return UsuarioBD.getUsuario(usuario);
+    }
+
 }

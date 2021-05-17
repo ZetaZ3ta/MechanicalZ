@@ -1,11 +1,20 @@
 package Presentacion;
 
 import Aplicacion.AplicacionException;
+import Aplicacion.LogicCliente;
+import Aplicacion.LogicMecanico;
+import Aplicacion.LogicMoto;
 import Aplicacion.LogicUsuario;
+import Aplicacion.Modelo.Cliente;
 import Aplicacion.Modelo.Mecanico;
+import Aplicacion.Modelo.Moto;
 import Aplicacion.Modelo.Usuario;
 import java.io.IOException;
 import java.net.URL;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.util.Date;
+import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,9 +29,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
@@ -35,29 +46,13 @@ import javafx.stage.Stage;
 public class AdministrarMecanicosController implements Initializable {
 
     ObservableList<Mecanico> listaMecanicos;
-    
+
     @FXML
-    private TextField fieldDNI;
+    private TextField fieldDNI, fieldNombre, fieldApellidos, fieldTelefono;
     @FXML
-    private TextField fieldNombre;
+    private DatePicker fieldFecha;
     @FXML
-    private TextField fieldApellidos;
-    @FXML
-    private TextField fieldTelefono;
-    @FXML
-    private TextField fieldFecha;
-    @FXML
-    private TableColumn olDNI;
-    @FXML
-    private TableColumn<?, ?> colNombre;
-    @FXML
-    private TableColumn<?, ?> colApellidos;
-    @FXML
-    private TableColumn<?, ?> colTelefono;
-    @FXML
-    private TableColumn<?, ?> colFecha;
-    @FXML
-    private TableColumn<?, ?> colOcupado;
+    private TableColumn colDNI, colNombre, colApellidos, colTelefono, colFecha, colOcupado;
     @FXML
     private ChoiceBox choiceOcupado;
     @FXML
@@ -71,30 +66,87 @@ public class AdministrarMecanicosController implements Initializable {
         choiceOcupado.getItems().add("Si");
         choiceOcupado.getItems().add("No");
 
+        try {
+            mostrarMecanicos();
+
+            colDNI.setCellValueFactory(new PropertyValueFactory<>("DNI"));
+            colNombre.setCellValueFactory(new PropertyValueFactory<>("Nombre"));
+            colApellidos.setCellValueFactory(new PropertyValueFactory<>("Apellidos"));
+            colTelefono.setCellValueFactory(new PropertyValueFactory<>("Telefono"));
+            colFecha.setCellValueFactory(new PropertyValueFactory<>("Fecha_Nacimiento"));
+            colOcupado.setCellValueFactory(new PropertyValueFactory<>("Ocupado"));
+
+        } catch (Exception ex) {
+            mostrarError("Error al inicializar: " + ex.toString());
+            System.exit(1);
+        }
+
     }
 
     @FXML
     private void btnAtrasAction(ActionEvent event) {
+        LoginSucces((Node) event.getSource()
+        );
     }
 
     @FXML
     private void btnAñadirAction(ActionEvent event) {
+        Instant instant = Instant.from(fieldFecha.getValue().atStartOfDay(ZoneId.systemDefault()));
+        Date date = Date.from(instant);
+        try {
+
+            Mecanico m = new Mecanico(fieldDNI.getText(), fieldNombre.getText(), fieldApellidos.getText(), Integer.parseInt(fieldTelefono.getText()), date, false);
+            LogicMecanico.añadir(m);
+
+            mostrarMecanicos();
+            limpiarCampos();
+        } catch (AplicacionException ex) {
+            Logger.getLogger(AdministrarClientesController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }
 
     @FXML
-    private void btnEliminarAction(ActionEvent event) {
+    private void btnEliminarAction(ActionEvent event) throws AplicacionException {
+        Mecanico m = tvMecanicos.getSelectionModel().getSelectedItem();
+
+        if (m != null) {
+            LogicMecanico.eliminar(m);
+            mostrarMecanicos();
+        } else {
+            mostrarError("Selecciona un mecanico!");
+        }
     }
 
     @FXML
-    private void btnActualizarAction(ActionEvent event) {
+    private void btnActualizarAction(ActionEvent event) throws AplicacionException {
+        Mecanico m1 = tvMecanicos.getSelectionModel().getSelectedItem();
+
+        if (m1 != null) {
+            Instant instant = Instant.from(fieldFecha.getValue().atStartOfDay(ZoneId.systemDefault()));
+            Date date = Date.from(instant);
+
+            Mecanico m2 = new Mecanico(fieldDNI.getText(), fieldNombre.getText(), fieldApellidos.getText(), Integer.parseInt(fieldTelefono.getText()), date, false);
+
+            LogicMecanico.actualizar(m2);
+            mostrarMecanicos();
+        } else {
+            mostrarError("Selecciona un mecanico!");
+        }
     }
 
     @FXML
     private void btnLimpiarAction(ActionEvent event) {
+        limpiarCampos();
     }
 
     @FXML
     private void onMouseClickedTableClientes(MouseEvent event) {
+        Mecanico mecanico = tvMecanicos.getSelectionModel().getSelectedItem();
+
+        if (mecanico != null) {
+            setMecanicoToView(mecanico);
+        }
     }
 
     private void LoginSucces(Node source) {
@@ -114,8 +166,8 @@ public class AdministrarMecanicosController implements Initializable {
         }
     }
 
-    private void mostrarUsuarios() throws AplicacionException {
-        //listaMecanicos = FXCollections.<Usuario>observableArrayList(LogicUsuario.getUsuarios());
+    private void mostrarMecanicos() throws AplicacionException {
+        listaMecanicos = FXCollections.<Mecanico>observableArrayList(LogicMecanico.getMecanicos());
 
         tvMecanicos.setItems(listaMecanicos);
     }
@@ -125,7 +177,7 @@ public class AdministrarMecanicosController implements Initializable {
         fieldNombre.setText(null);
         fieldTelefono.setText(null);
         fieldApellidos.setText(null);
-        fieldFecha.setText(null);
+        fieldFecha.setValue(null);
         choiceOcupado.setValue(null);
     }
 
@@ -138,13 +190,13 @@ public class AdministrarMecanicosController implements Initializable {
         alert.showAndWait();
     }
 
-    private void setUsuarioToView(Mecanico m) {
+    private void setMecanicoToView(Mecanico m) {
 
         fieldDNI.setText(m.getDNI());
         fieldNombre.setText(m.getNombre());
         fieldTelefono.setText(String.valueOf(m.getTelefono()));
         fieldApellidos.setText(m.getApellidos());
-        fieldFecha.setText(m.getFecha_Nacimiento());
+        fieldFecha.setValue(m.getFecha_Nacimiento().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
         choiceOcupado.setValue(null);
     }
 

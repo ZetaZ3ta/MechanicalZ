@@ -35,12 +35,22 @@ public class PrincipalAdminController implements Initializable {
     @FXML
     private void btnAdminUsuariosAction(ActionEvent event) {
         Escena = "AdministrarUsuarios.fxml";
-        tituloEscena = "Adminsitrar Usuarios";
+        tituloEscena = "Administrar Usuarios";
 
         CambioEscena(event);
     }
 
     @FXML
+    private void btnAdminMecanicosAction(ActionEvent event) {
+        Escena = "AdministrarMecanicos.fxml";
+        tituloEscena = "Administrar Mecanicos";
+
+        CambioEscena(event);
+
+    }
+
+    @FXML
+
     private void btnAdminServiciosAction(ActionEvent event) {
         Escena = "AdminsitrarServicios.fxml";
         tituloEscena = "Administrar Servicios";

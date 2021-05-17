@@ -1,6 +1,5 @@
 package Datos;
 
-import Aplicacion.Modelo.Cliente;
 import Aplicacion.Modelo.Usuario;
 import Aplicacion.SingleSession;
 import java.util.ArrayList;
@@ -13,7 +12,7 @@ import org.hibernate.Session;
  */
 public class UsuarioBD {
 
-    public static Usuario getUsuario(String usuario, String contraseña) {
+    public static Usuario getUsuario(String usuario) {
         Session ses = SingleSession.getSesio();
         Query query = ses.createQuery("FROM Usuario WHERE usuario = :usuario");
         query.setParameter("usuario", usuario);
@@ -66,6 +65,12 @@ public class UsuarioBD {
         ses.close();
 
         return u;
+    }
+
+    public static void getRol(String usuario) {
+        Session ses = SingleSession.getSesio();
+        Query query = ses.createQuery("FROM Usuario");
+        
     }
 
 }
