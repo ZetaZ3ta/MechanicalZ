@@ -1,16 +1,10 @@
 package Presentacion;
 
 import Aplicacion.AplicacionException;
-import Aplicacion.LogicCliente;
 import Aplicacion.LogicMoto;
-import Aplicacion.Modelo.Cliente;
 import Aplicacion.Modelo.Moto;
 import java.io.IOException;
 import java.net.URL;
-import java.time.Instant;
-import java.time.ZoneId;
-import java.util.Date;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;

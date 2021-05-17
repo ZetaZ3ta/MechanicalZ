@@ -28,13 +28,7 @@ import javafx.stage.Stage;
 public class LoginController implements Initializable {
 
     @FXML
-    private Button btnEntrarLogIn;
-    private TextField textUsuario;
-    private PasswordField textPassword;
-    @FXML
-    private Label errorUsuario;
-    @FXML
-    private Label errorContraseña;
+    private Label errorUsuario, errorContraseña;
     @FXML
     private TextField fieldUsuario;
     @FXML
@@ -91,7 +85,7 @@ public class LoginController implements Initializable {
 
     private void LoginSucces(Node source) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/PantallaPrincipal.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/PrincipalAdmin.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
             Stage stage = new Stage();

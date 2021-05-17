@@ -147,12 +147,6 @@ public class AdministrarClientesController implements Initializable {
         LoginSucces((Node) event.getSource());
     }
 
-//    @FXML
-//    private void fieldChangedFiltrar(InputMethodEvent event) {
-//        System.out.println(event.getCommitted());
-//
-//    }
-
     private void mostrarError(String txt) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("ERROR");

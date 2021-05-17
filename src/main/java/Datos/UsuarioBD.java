@@ -1,7 +1,9 @@
 package Datos;
 
+import Aplicacion.Modelo.Cliente;
 import Aplicacion.Modelo.Usuario;
 import Aplicacion.SingleSession;
+import java.util.ArrayList;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
@@ -38,6 +40,32 @@ public class UsuarioBD {
         ses.save(u);
         ses.getTransaction().commit();
         ses.close();
+    }
+
+    public static void eliminar(Usuario u) {
+        Session ses = SingleSession.getSesio();
+        ses.beginTransaction();
+        ses.delete(u);
+        ses.getTransaction().commit();
+        ses.close();
+    }
+
+    public static void actualizar(Usuario u1) {
+        Session ses = SingleSession.getSesio();
+        ses.beginTransaction();
+        ses.update(u1);
+        ses.getTransaction().commit();
+        ses.close();
+    }
+
+    public static ArrayList<Usuario> getUsuarios() {
+        Session ses = SingleSession.getSesio();
+        Query query = ses.createQuery("FROM Usuario");
+        ArrayList<Usuario> u = (ArrayList<Usuario>) query.list();
+
+        ses.close();
+
+        return u;
     }
 
 }

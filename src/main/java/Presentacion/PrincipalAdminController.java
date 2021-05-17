@@ -12,15 +12,14 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 /**
  * FXML Controller class
  *
- * @author ZetaZeta
+ * @author Victor
  */
-public class PantallaPrincipalController implements Initializable {
+public class PrincipalAdminController implements Initializable {
 
     String tituloEscena;
     String Escena;
@@ -34,32 +33,27 @@ public class PantallaPrincipalController implements Initializable {
     }
 
     @FXML
-    private void btnAdminClientesAction(ActionEvent event) {
-        Escena = "AdministrarClientes.fxml";
-        tituloEscena = "Administrar Clientes";
-
-        CambioEscena(event);
-
-    }
-
-    @FXML
-    private void btnAdminMotosAction(ActionEvent event) {
-        Escena = "AdministrarMotos.fxml";
-        tituloEscena = "Administrar Motos";
+    private void btnAdminUsuariosAction(ActionEvent event) {
+        Escena = "AdministrarUsuarios.fxml";
+        tituloEscena = "Adminsitrar Usuarios";
 
         CambioEscena(event);
     }
 
     @FXML
-    private void btnAdminFacturasAction(ActionEvent event) {
-        Escena = "";
-        tituloEscena = "";
+    private void btnAdminServiciosAction(ActionEvent event) {
+        Escena = "AdminsitrarServicios.fxml";
+        tituloEscena = "Administrar Servicios";
+
+        CambioEscena(event);
+
     }
 
     @FXML
     private void btnCerrarAction(ActionEvent event) {
         Escena = "Login.fxml";
         tituloEscena = "Login";
+
         CambioEscena(event);
 
     }

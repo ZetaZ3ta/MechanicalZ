@@ -1,6 +1,7 @@
 package Aplicacion;
 
 import Aplicacion.Modelo.Cliente;
+import Aplicacion.Modelo.Usuario;
 import Datos.ClienteBD;
 import Datos.DatosException;
 import java.util.ArrayList;
@@ -52,6 +53,10 @@ public class LogicCliente {
 
         return ret;
 
+    }
+
+    public static void añadir(Usuario u) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }
