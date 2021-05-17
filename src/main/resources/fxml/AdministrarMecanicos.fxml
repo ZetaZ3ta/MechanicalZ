@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentacion.AdministrarMecanicosController">
+   <left>
+      <VBox BorderPane.alignment="TOP_RIGHT">
+         <children>
+            <Label prefHeight="30.0" text="DNI">
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
+            <Separator prefHeight="25.0" />
+            <Label prefHeight="25.0" text="Nombre">
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
+            <Separator prefHeight="20.0" />
+            <Label layoutX="10.0" layoutY="65.0" prefHeight="25.0" text="Apellidos">
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
+            <Separator layoutX="10.0" layoutY="90.0" prefHeight="20.0" />
+            <Label layoutX="10.0" layoutY="135.0" prefHeight="25.0" text="Telefono">
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
+            <Separator layoutX="10.0" layoutY="160.0" prefHeight="20.0" />
+            <Label layoutX="10.0" layoutY="180.0" prefHeight="25.0" text="Fecha Nacimiento">
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
+            <Separator layoutX="10.0" layoutY="205.0" prefHeight="20.0" />
+            <Label prefHeight="25.0" text="Ocupado">
+               <padding>
+                  <Insets left="10.0" />
+               </padding>
+            </Label>
+         </children>
+      </VBox>
+   </left>
+   <center>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <TextField fx:id="fieldDNI" promptText="DNI">
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </TextField>
+            <Separator prefHeight="20.0">
+               <VBox.margin>
+                  <Insets right="10.0" />
+               </VBox.margin>
+            </Separator>
+            <TextField fx:id="fieldNombre" promptText="Nombre" />
+            <Separator prefHeight="20.0" prefWidth="400.0">
+               <VBox.margin>
+                  <Insets right="10.0" />
+               </VBox.margin>
+            </Separator>
+            <TextField fx:id="fieldApellidos" layoutX="20.0" layoutY="61.0" promptText="Apellidos" />
+            <Separator layoutX="20.0" layoutY="92.0" prefHeight="20.0" prefWidth="400.0" />
+            <TextField fx:id="fieldTelefono" layoutX="20.0" layoutY="143.0" promptText="Telefono" />
+            <Separator layoutX="20.0" layoutY="174.0" prefHeight="20.0" prefWidth="400.0" />
+            <TextField fx:id="fieldFecha" layoutX="20.0" layoutY="194.0" promptText="Fecha de nacimiento" />
+            <Separator layoutX="20.0" layoutY="225.0" prefHeight="20.0" prefWidth="400.0" />
+            <ChoiceBox fx:id="choiceOcupado" prefWidth="150.0" />
+         </children>
+         <BorderPane.margin>
+            <Insets />
+         </BorderPane.margin>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <padding>
+            <Insets left="10.0" right="10.0" />
+         </padding>
+      </VBox>
+   </center>
+   <right>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <TableView fx:id="tvMecanicos" onMouseClicked="#onMouseClickedTableClientes">
+               <columns>
+                  <TableColumn fx:id="colDNI" prefWidth="150.0" text="DNI" />
+                  <TableColumn fx:id="colNombre" prefWidth="150.0" text="Nombre" />
+                  <TableColumn fx:id="colApellidos" prefWidth="150.0" text="Apellidos" />
+                  <TableColumn fx:id="colTelefono" prefWidth="150.0" text="Telefono" />
+                  <TableColumn fx:id="colFecha" prefWidth="150.0" text="Fecha Nacimiento" />
+                  <TableColumn fx:id="colOcupado" prefWidth="150.0" text="Ocupado" />
+               </columns>
+            </TableView>
+         </children>
+         <padding>
+            <Insets right="10.0" />
+         </padding>
+      </VBox>
+   </right>
+   <top>
+      <VBox alignment="CENTER" BorderPane.alignment="CENTER">
+         <children>
+            <Label alignment="CENTER" contentDisplay="CENTER" text="Administrar Mecanicos" textAlignment="CENTER">
+               <font>
+                  <Font name="Arial Black" size="44.0" />
+               </font>
+            </Label>
+         </children>
+      </VBox>
+   </top>
+   <bottom>
+      <VBox BorderPane.alignment="CENTER">
+         <children>
+            <HBox alignment="CENTER" prefWidth="1000.0">
+               <children>
+                  <Button mnemonicParsing="false" onAction="#btnAtrasAction" text="Atras">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Button>
+                  <Separator layoutX="781.0" layoutY="25.0" orientation="VERTICAL" />
+                  <Button mnemonicParsing="false" onAction="#btnAñadirAction" text="Añadir Mecanico">
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </Button>
+                  <Separator orientation="VERTICAL" />
+                  <Button mnemonicParsing="false" onAction="#btnEliminarAction" text="Eliminar Mecanico" />
+                  <Separator orientation="VERTICAL" />
+                  <Button mnemonicParsing="false" onAction="#btnActualizarAction" text="Actualizar Mecanico" />
+                  <Separator layoutX="896.0" layoutY="25.0" orientation="VERTICAL" />
+                  <Button layoutX="902.0" layoutY="25.0" mnemonicParsing="false" onAction="#btnLimpiarAction" text="Limpiar Campos" />
+               </children>
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+               <padding>
+                  <Insets top="15.0" />
+               </padding>
+            </HBox>
+            <HBox alignment="CENTER" prefHeight="53.0" prefWidth="1000.0">
+               <children>
+                  <Label alignment="CENTER" prefWidth="1000.0" text="Aplicacion creada por Victor Paz" textAlignment="CENTER">
+                     <font>
+                        <Font name="System Italic" size="12.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                     <padding>
+                        <Insets bottom="10.0" top="10.0" />
+                     </padding>
+                  </Label>
+               </children>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+   </bottom>
+</BorderPane>
