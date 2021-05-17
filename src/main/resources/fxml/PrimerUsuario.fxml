@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" onKeyPressed="#OnKeyPressedFondo" prefHeight="500.0" prefWidth="320.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Presentacion.PrimerUsuario">
+   <children>
+      <Label layoutX="116.0" layoutY="50.0" text="Registro">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label layoutX="28.0" layoutY="106.0" prefWidth="250.0" text="No hay ningun usuario administrador en la base de datos.Crea el primer usuario administrador para poder empezar a utilizar la aplicacion" textAlignment="CENTER" wrapText="true" />
+      <Label layoutX="87.0" layoutY="184.0" text="Usuario">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <TextField fx:id="fieldUsuario" layoutX="87.0" layoutY="209.0" />
+      <Label fx:id="errorUsuario" layoutX="87.0" layoutY="234.0" text="Campo usuario vacio!" textFill="RED" visible="false" />
+      <Label layoutX="87.0" layoutY="262.0" text="Contraseña">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <PasswordField fx:id="fieldContraseña" layoutX="87.0" layoutY="287.0" />
+      <Label fx:id="errorContraseña" layoutX="87.0" layoutY="312.0" text="Campo contraseña vacio!" textFill="RED" visible="false" />
+      <Label layoutX="86.0" layoutY="341.0" text="Repetir Contraseña">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Label>
+      <PasswordField fx:id="fieldContraseña2" layoutX="86.0" layoutY="366.0" />
+      <Label fx:id="errorContraseña1" layoutX="87.0" layoutY="391.0" text="Campo contraseña vacio!" textFill="RED" visible="false" />
+      <Button fx:id="btnEntrarLogIn" layoutX="103.0" layoutY="439.0" mnemonicParsing="false" onAction="#btnEntrarLogInAction" prefHeight="25.0" text="Crear usuario">
+         <font>
+            <Font size="15.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
