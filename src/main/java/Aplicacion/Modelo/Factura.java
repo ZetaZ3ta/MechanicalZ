@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import org.hibernate.annotations.ColumnDefault;
 
 /**
  *
@@ -28,8 +29,8 @@ public class Factura {
     @Column
     private int Precio;
 
-    @Column
-    private int IVA;
+    @ColumnDefault("21%")
+    private String IVA;
 
     @OneToOne(cascade = {CascadeType.ALL})
     private Cliente Cliente;
@@ -40,7 +41,7 @@ public class Factura {
     public Factura() {
     }
 
-    public Factura(int ID, String Descripcion, int Precio, int IVA, Cliente Cliente, Secretario Secretario) {
+    public Factura(int ID, String Descripcion, int Precio, String IVA, Cliente Cliente, Secretario Secretario) {
         this.ID = ID;
         this.Descripcion = Descripcion;
         this.Precio = Precio;
@@ -73,11 +74,11 @@ public class Factura {
         this.Precio = Precio;
     }
 
-    public int getIVA() {
+    public String getIVA() {
         return IVA;
     }
 
-    public void setIVA(int IVA) {
+    public void setIVA(String IVA) {
         this.IVA = IVA;
     }
 

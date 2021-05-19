@@ -55,8 +55,8 @@ public class PantallaPrincipalController implements Initializable {
     private void btnAdminFacturasAction(ActionEvent event) {
         Escena = "AdministrarFacturas.fxml";
         tituloEscena = "Administrar Facturas";
-        mostrarError("No implementado aun");
-//CambioEscena(event);
+        
+        CambioEscena(event);
     }
 
     @FXML
