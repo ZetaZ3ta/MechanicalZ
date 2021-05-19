@@ -24,7 +24,13 @@ public class LogicFactura {
 
     }
 
-    public static void añadir(Factura f) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public static void añadir(Factura f) throws AplicacionException {
+        try {
+            FacturaBD.añadir(f);
+
+        } catch (DatosException ex) {
+            throw new AplicacionException("Error añadir moto: " + ex.toString());
+        }
+
     }
 }

@@ -68,9 +68,18 @@ public class PrincipalAdminController implements Initializable {
 
     }
 
+    @FXML
+    private void btnAdminSecretariosAction(ActionEvent event) {
+        Escena = "AdministrarSecretarios.fxml";
+        tituloEscena = "Administrar Secretarios";
+
+        CambioEscena(event);
+    }
+
     private void CambioEscena(ActionEvent event) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + Escena));
+            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AdministrarSecretarios.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
             Stage stage = new Stage();

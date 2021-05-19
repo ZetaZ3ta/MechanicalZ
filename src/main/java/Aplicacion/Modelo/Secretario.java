@@ -43,6 +43,10 @@ public class Secretario {
         this.Telefono = Telefono;
         this.Fecha_Nacimiento = Fecha_Nacimiento;
     }
+    
+    public Secretario() {
+        
+    }
 
     public String getDNI() {
         return DNI;

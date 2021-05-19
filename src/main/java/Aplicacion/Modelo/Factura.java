@@ -29,8 +29,8 @@ public class Factura {
     @Column
     private int Precio;
 
-    @ColumnDefault("21%")
-    private String IVA;
+    @Column
+    private int IVA;
 
     @OneToOne(cascade = {CascadeType.ALL})
     private Cliente Cliente;
@@ -41,7 +41,7 @@ public class Factura {
     public Factura() {
     }
 
-    public Factura(int ID, String Descripcion, int Precio, String IVA, Cliente Cliente, Secretario Secretario) {
+    public Factura(int ID, String Descripcion, int Precio, int IVA, Cliente Cliente, Secretario Secretario) {
         this.ID = ID;
         this.Descripcion = Descripcion;
         this.Precio = Precio;
@@ -74,11 +74,11 @@ public class Factura {
         this.Precio = Precio;
     }
 
-    public String getIVA() {
+    public int getIVA() {
         return IVA;
     }
 
-    public void setIVA(String IVA) {
+    public void setIVA(int IVA) {
         this.IVA = IVA;
     }
 

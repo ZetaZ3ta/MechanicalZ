@@ -42,8 +42,16 @@ public class ClienteBD {
         ArrayList<Cliente> c = (ArrayList<Cliente>) query.list();
 
         ses.close();
-        
+
         return c;
 
+    }
+
+    public static Cliente getCliente(String nombre) {
+        Session ses = SingleSession.getSesio();
+
+        Query query = ses.createQuery("FROM Cliente WHERE CONCAT(nombre,' ',apellidos) = '" + nombre + "'");
+        Cliente c = (Cliente) query.uniqueResult();
+        return c;
     }
 }

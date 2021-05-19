@@ -1,21 +1,22 @@
 package Aplicacion;
 
 import Aplicacion.Modelo.Cliente;
-import Aplicacion.Modelo.Usuario;
+import Aplicacion.Modelo.Secretario;
 import Datos.ClienteBD;
 import Datos.DatosException;
+import Datos.SecretarioBD;
 import java.util.ArrayList;
 
 /**
  *
  * @author Victor
  */
-public class LogicCliente {
+public class LogicSecretario {
 
-    public static void añadir(Cliente c) throws AplicacionException {
+    public static void añadir(Secretario s) throws AplicacionException {
 
         try {
-            ClienteBD.añadir(c);
+            SecretarioBD.añadir(s);
 
         } catch (DatosException ex) {
             throw new AplicacionException("Error añadir moto: " + ex.toString());
@@ -23,29 +24,29 @@ public class LogicCliente {
 
     }
 
-    public static void eliminar(Cliente c) throws AplicacionException {
+    public static void eliminar(Secretario s) throws AplicacionException {
         try {
 
-            ClienteBD.eliminar(c);
+            SecretarioBD.eliminar(s);
 
         } catch (DatosException ex) {
             throw new AplicacionException("Error añadir moto: " + ex.toString());
         }
     }
 
-    public static void actualizar(Cliente c1) throws AplicacionException {
+    public static void actualizar(Secretario s1) throws AplicacionException {
         try {
-            ClienteBD.actualizar(c1);
+            SecretarioBD.actualizar(s1);
         } catch (DatosException ex) {
             throw new AplicacionException("Error añadir moto: " + ex.toString());
         }
 
     }
 
-    public static ArrayList<Cliente> getClientes() throws AplicacionException {
-        ArrayList<Cliente> ret = null;
+    public static ArrayList<Secretario> getSecretarios() throws AplicacionException {
+        ArrayList<Secretario> ret = null;
         try {
-            ret = ClienteBD.getClientes();
+            ret = SecretarioBD.getSecretarios();
 
         } catch (DatosException ex) {
             throw new AplicacionException("Error getClientes: " + ex.toString());
@@ -55,9 +56,9 @@ public class LogicCliente {
 
     }
 
-    public static Cliente getCliente(String nombre) {
+    public static Secretario getSecretario(String nombre) {
 
-        return ClienteBD.getCliente(nombre);
+        return SecretarioBD.getSecretario(nombre);
 
     }
 

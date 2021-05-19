@@ -1,12 +1,13 @@
 package Presentacion;
 
 import Aplicacion.AplicacionException;
+import Aplicacion.LogicCliente;
 import Aplicacion.LogicFactura;
-import Aplicacion.LogicUsuario;
+import Aplicacion.LogicSecretario;
 import Aplicacion.Modelo.Cliente;
 import Aplicacion.Modelo.Factura;
 import Aplicacion.Modelo.Secretario;
-import Aplicacion.Modelo.Usuario;
+import Datos.DatosException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -22,6 +23,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -38,21 +40,39 @@ import javafx.stage.Stage;
 public class AdministrarFacturasController implements Initializable {
 
     ObservableList<Factura> listaFacturas;
+    ObservableList<Cliente> listaClientes;
+    ObservableList<Secretario> listaSecretarios;
 
     @FXML
-    private TextField fieldID, fieldDescripcion, fieldPrecio, fieldCliente, fieldSecretario;
+    private TextField fieldID, fieldPrecio, fieldDescripcion;
     @FXML
     private TableView<Factura> tvFacturas;
     @FXML
     private TableColumn colID, colDescripcion, colPrecio, colIVA, colCliente, colSecretario;
+    @FXML
+    private ChoiceBox choiceCliente;
+    @FXML
+    private ChoiceBox choiceSecretario;
 
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
         try {
-            mostrarUsuarios();
+            listaClientes = FXCollections.<Cliente>observableArrayList(LogicCliente.getClientes());
+            listaSecretarios = FXCollections.<Secretario>observableArrayList(LogicSecretario.getSecretarios());
+
+            for (Cliente clientes : listaClientes) {
+                choiceCliente.getItems().add(clientes.getNombre() + " " + clientes.getApellidos());
+            }
+
+            for (Secretario secretarios : listaSecretarios) {
+                choiceSecretario.getItems().add(secretarios.getNombre() + " " + secretarios.getApellidos());
+            }
+
+            mostrarFacturas();
 
             colID.setCellValueFactory(new PropertyValueFactory<>("ID"));
             colDescripcion.setCellValueFactory(new PropertyValueFactory<>("Descripcion"));
@@ -65,6 +85,7 @@ public class AdministrarFacturasController implements Initializable {
             mostrarError("Error al inicializar: " + ex.toString());
             System.exit(1);
         }
+
     }
 
     @FXML
@@ -75,14 +96,14 @@ public class AdministrarFacturasController implements Initializable {
     }
 
     @FXML
-    private void btnAñadirAction(ActionEvent event) throws AplicacionException {
-        Cliente c = null;
-        Secretario s = null;
+    private void btnAñadirAction(ActionEvent event) throws AplicacionException, DatosException {
+        Cliente c = LogicCliente.getCliente((String) choiceCliente.getSelectionModel().getSelectedItem());
+        Secretario s = LogicSecretario.getSecretario((String) choiceSecretario.getSelectionModel().getSelectedItem());
 
-        Factura f = new Factura(Integer.parseInt(fieldID.getText()), fieldDescripcion.getText(), Integer.parseInt(fieldPrecio.getText()), "21%", c, s);
+        Factura f = new Factura(Integer.parseInt(fieldID.getText()), fieldDescripcion.getText(), Integer.parseInt(fieldPrecio.getText()), 21, c, s);
         LogicFactura.añadir(f);
 
-        mostrarUsuarios();
+        mostrarFacturas();
         limpiarCampos();
     }
 
@@ -127,7 +148,7 @@ public class AdministrarFacturasController implements Initializable {
         }
     }
 
-    private void mostrarUsuarios() throws AplicacionException {
+    private void mostrarFacturas() throws AplicacionException {
         listaFacturas = FXCollections.<Factura>observableArrayList(LogicFactura.getFacturas());
 
         tvFacturas.setItems(listaFacturas);
@@ -137,8 +158,8 @@ public class AdministrarFacturasController implements Initializable {
         fieldID.setText(null);
         fieldDescripcion.setText(null);
         fieldPrecio.setText(null);
-        fieldCliente.setText(null);
-        fieldSecretario.setText(null);
+        choiceCliente.setValue(null);
+        choiceSecretario.setValue(null);
     }
 
     private void mostrarError(String txt) {
@@ -154,8 +175,8 @@ public class AdministrarFacturasController implements Initializable {
         fieldID.setText(String.valueOf(u.getID()));
         fieldDescripcion.setText(u.getDescripcion());
         fieldPrecio.setText(String.valueOf(u.getPrecio()));
-        fieldCliente.setText(u.getCliente().getNombre() + u.getCliente().getApellidos());
-        fieldSecretario.setText(u.getSecretario().getNombre() + u.getCliente().getApellidos());
+        choiceCliente.setValue(u.getCliente().getNombre() + u.getCliente().getApellidos());
+        choiceSecretario.setValue(u.getSecretario().getNombre() + u.getCliente().getApellidos());
     }
 
 }
