@@ -5,12 +5,14 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 /**
  *
  * @author ZetaZeta
  */
 @Entity
+@Table
 public class Proveedor {
 
     @Id

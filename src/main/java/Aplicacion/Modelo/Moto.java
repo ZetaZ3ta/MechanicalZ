@@ -3,12 +3,14 @@ package Aplicacion.Modelo;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  *
  * @author ZetaZeta
  */
 @Entity
+@Table
 public class Moto {
 
     @Id

@@ -1,4 +1,4 @@
-    package Aplicacion.Modelo;
+package Aplicacion.Modelo;
 
 import java.util.Date;
 import java.util.List;
@@ -9,12 +9,14 @@ import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 /**
  *
  * @author ZetaZeta
  */
 @Entity
+@Table
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Cliente {
 
@@ -53,8 +55,6 @@ public class Cliente {
 
     public Cliente() {
     }
-    
-    
 
     public String getDNI() {
         return DNI;

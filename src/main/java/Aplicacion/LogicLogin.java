@@ -9,16 +9,9 @@ import Datos.UsuarioBD;
  */
 public class LogicLogin {
 
-    public static void verificarLogin(String usuario, String contraseña) throws AplicacionException {
+    public static Usuario verificarLogin(String usuario, String contraseña) throws AplicacionException {
 
-        Usuario user = UsuarioBD.getUsuario(usuario);
-
-        System.out.println(usuario + " " + contraseña);
-
-        if (!user.getContraseña().equals(contraseña)) {
-            throw new AplicacionException("contraseña incorrecta");
-
-        }
+        return UsuarioBD.getUsuario(usuario);
 
     }
 }

@@ -1,20 +1,13 @@
 package Presentacion;
 
 import Aplicacion.AplicacionException;
-import Aplicacion.LogicCliente;
 import Aplicacion.LogicMecanico;
-import Aplicacion.LogicMoto;
-import Aplicacion.LogicUsuario;
-import Aplicacion.Modelo.Cliente;
 import Aplicacion.Modelo.Mecanico;
-import Aplicacion.Modelo.Moto;
-import Aplicacion.Modelo.Usuario;
 import java.io.IOException;
 import java.net.URL;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -151,7 +144,7 @@ public class AdministrarMecanicosController implements Initializable {
 
     private void LoginSucces(Node source) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/PantallaPrincipal.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/PrincipalAdmin.fxml"));
             Parent root = loader.load();
             Scene scene = new Scene(root);
             Stage stage = new Stage();

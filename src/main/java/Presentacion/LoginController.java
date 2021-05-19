@@ -16,10 +16,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
 /**
@@ -42,28 +44,19 @@ public class LoginController implements Initializable {
 
     @FXML
     private void btnEntrarLogInAction(ActionEvent event) throws AplicacionException {
-        fieldUsuario.setStyle(null);
-        fieldContraseña.setStyle(null);
-        errorUsuario.setVisible(false);
-        errorContraseña.setVisible(false);
-
-        if (fieldUsuario.getText().equals("")) {
-            fieldUsuario.setStyle("-fx-border-color: red;");
-            errorUsuario.setVisible(true);
-        }
-        if (fieldContraseña.getText().equals("")) {
-            fieldContraseña.setStyle("-fx-border-color: red;");
-            errorContraseña.setVisible(true);
-        }
-        if (!fieldUsuario.getText().equals("") && !fieldContraseña.getText().equals("")) {
-            LogicLogin.verificarLogin(fieldUsuario.getText(), fieldContraseña.getText());
-
-            LoginSucces((Node) event.getSource());
-        }
+        comprobacionLogin((Node) event.getSource());
     }
 
     @FXML
     private void OnKeyPressedFondo(KeyEvent event) throws AplicacionException {
+        if (event.getCode() == event.getCode().ENTER) {
+            comprobacionLogin((Node) event.getSource());
+        }
+
+    }
+
+    private void comprobacionLogin(Node nodo) throws AplicacionException {
+
         fieldUsuario.setStyle(null);
         fieldContraseña.setStyle(null);
         errorUsuario.setVisible(false);
@@ -78,9 +71,13 @@ public class LoginController implements Initializable {
             errorContraseña.setVisible(true);
         }
         if (!fieldUsuario.getText().equals("") && !fieldContraseña.getText().equals("")) {
-            LogicLogin.verificarLogin(fieldUsuario.getText(), fieldContraseña.getText());
+            Usuario user = null;
+            user = LogicLogin.verificarLogin(fieldUsuario.getText(), fieldContraseña.getText());
 
-            LoginSucces((Node) event.getSource());
+//            if (!user.getUsuario().equals(fieldUsuario.getText())) {
+//                mostrarError("Usuario no encontrado");
+//            }
+            LoginSucces(nodo);
         }
     }
 
@@ -110,6 +107,15 @@ public class LoginController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private void mostrarError(String txt) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("ERROR");
+        alert.setContentText(txt);
+        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+
+        alert.showAndWait();
     }
 
 }

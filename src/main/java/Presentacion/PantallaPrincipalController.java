@@ -12,7 +12,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.control.Alert;
+import javafx.scene.layout.Region;
 import javafx.stage.Stage;
 
 /**
@@ -52,8 +53,10 @@ public class PantallaPrincipalController implements Initializable {
 
     @FXML
     private void btnAdminFacturasAction(ActionEvent event) {
-        Escena = "";
-        tituloEscena = "";
+        Escena = "AdministrarFacturas.fxml";
+        tituloEscena = "Administrar Facturas";
+        mostrarError("No implementado aun");
+//CambioEscena(event);
     }
 
     @FXML
@@ -80,6 +83,24 @@ public class PantallaPrincipalController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private void mostrarError(String txt) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("ERROR");
+        alert.setContentText(txt);
+        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+
+        alert.showAndWait();
+    }
+
+    private void mostrarInfo(String txt) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Info:");
+        alert.setContentText(txt);
+        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+
+        alert.showAndWait();
     }
 
 }

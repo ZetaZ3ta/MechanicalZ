@@ -1,40 +1,50 @@
 package Aplicacion;
 
-import Aplicacion.Modelo.Usuario;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import org.hibernate.Session;
 
 /**
  *
- * @author ZetaZeta
+ * @author Victor
  */
 public class MechanicalZ extends Application {
+
+    String nombreEscena;
+    String escenaFxml;
+    GestorEscenas escena;
 
     @Override
     public void start(Stage stage) throws Exception {
 
         int numUsers = LogicUsuario.getNumUsers();
-        System.out.println(numUsers);
-        Parent root;
-        Scene scene;
 
         if (numUsers == 0) {
-            root = FXMLLoader.load(getClass().getResource("/fxml/PrimerUsuario.fxml"));
+            nombreEscena = "Registro";
+            escenaFxml = "PrimerUsuario.fxml";
+            Scene scene;
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/" + escenaFxml));
             scene = new Scene(root);
-            stage.setTitle("Registro");
+            stage.setTitle(nombreEscena);
             stage.setScene(scene);
             stage.show();
-        } else {
-            root = FXMLLoader.load(getClass().getResource("/fxml/Login.fxml"));
 
+//            escena = new GestorEscenas();
+//            escena.cambioEscena(nombreEscena, escenaFxml);
+        } else {
+            nombreEscena = "Login";
+            escenaFxml = "Login.fxml";
+            Scene scene;
+            Parent root = FXMLLoader.load(getClass().getResource("/fxml/" + escenaFxml));
             scene = new Scene(root);
-            stage.setTitle("Login");
+            stage.setTitle(nombreEscena);
             stage.setScene(scene);
             stage.show();
+
+//            escena = new GestorEscenas();
+//            escena.cambioEscena(nombreEscena, escenaFxml);
         }
 
     }
@@ -44,18 +54,6 @@ public class MechanicalZ extends Application {
      */
     public static void main(String[] args) {
         launch(args);
-    }
-
-    private static void transaction1() {
-        Session ses = SingleSession.getSesio();
-        ses.beginTransaction();
-
-        Usuario p1 = new Usuario("Zeta", "12", "admin");
-
-        ses.save(p1);
-
-        ses.getTransaction().commit();
-        ses.close();
     }
 
 }

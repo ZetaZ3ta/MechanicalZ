@@ -3,17 +3,22 @@ package Aplicacion.Modelo;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 /**
  *
  * @author ZetaZeta
  */
 @Entity
+@Table
 public class Factura {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Column
     private int ID;
 
@@ -31,6 +36,9 @@ public class Factura {
 
     @OneToOne(cascade = {CascadeType.ALL})
     private Secretario Secretario;
+
+    public Factura() {
+    }
 
     public Factura(int ID, String Descripcion, int Precio, int IVA, Cliente Cliente, Secretario Secretario) {
         this.ID = ID;
