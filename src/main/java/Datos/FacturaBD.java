@@ -17,7 +17,6 @@ public class FacturaBD {
         ses.beginTransaction();
         ses.save(f);
         ses.getTransaction().commit();
-        ses.close();
     }
 
     public static void eliminar(Factura f) throws DatosException {
@@ -25,7 +24,6 @@ public class FacturaBD {
         ses.beginTransaction();
         ses.delete(f);
         ses.getTransaction().commit();
-        ses.close();
     }
 
     public static void actualizar(Factura f1) throws DatosException {
@@ -33,15 +31,12 @@ public class FacturaBD {
         ses.beginTransaction();
         ses.update(f1);
         ses.getTransaction().commit();
-        ses.close();
     }
 
     public static ArrayList<Factura> getFacturas() throws DatosException {
         Session ses = SingleSession.getSesio();
         Query query = ses.createQuery("FROM Factura");
         ArrayList<Factura> f = (ArrayList<Factura>) query.list();
-
-        ses.close();
 
         return f;
 

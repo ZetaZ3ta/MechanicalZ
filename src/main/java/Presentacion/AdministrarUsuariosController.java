@@ -1,6 +1,7 @@
 package Presentacion;
 
 import Aplicacion.AplicacionException;
+import Aplicacion.GestorEscenas;
 import Aplicacion.LogicUsuario;
 import Aplicacion.Modelo.Usuario;
 import java.io.IOException;
@@ -69,8 +70,9 @@ public class AdministrarUsuariosController implements Initializable {
     }
 
     @FXML
-    private void btnAtrasAction(ActionEvent event) {
-        LoginSucces((Node) event.getSource());
+    private void btnAtrasAction(ActionEvent event) throws IOException {
+        GestorEscenas escenas = new GestorEscenas();
+        escenas.cambioEscena("MechanicalZ", "PantallaPrincipal.fxml", (Node) event.getSource());
 
     }
 
@@ -123,23 +125,6 @@ public class AdministrarUsuariosController implements Initializable {
 
         if (usuario != null) {
             setUsuarioToView(usuario);
-        }
-    }
-
-    private void LoginSucces(Node source) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/PrincipalAdmin.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
-            scene.getStylesheets().add("/styles/Styles.css");
-            stage.setTitle("MechanicalZ");
-            stage.setScene(scene);
-            stage.show();
-            Stage thisStage = (Stage) source.getScene().getWindow();
-            thisStage.close();
-        } catch (IOException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

@@ -1,6 +1,7 @@
 package Presentacion;
 
 import Aplicacion.AplicacionException;
+import Aplicacion.GestorEscenas;
 import Aplicacion.LogicLogin;
 import Aplicacion.LogicUsuario;
 import Aplicacion.Modelo.Usuario;
@@ -43,19 +44,19 @@ public class LoginController implements Initializable {
     }
 
     @FXML
-    private void btnEntrarLogInAction(ActionEvent event) throws AplicacionException {
+    private void btnEntrarLogInAction(ActionEvent event) throws AplicacionException, IOException {
         comprobacionLogin((Node) event.getSource());
     }
 
     @FXML
-    private void OnKeyPressedFondo(KeyEvent event) throws AplicacionException {
+    private void OnKeyPressedFondo(KeyEvent event) throws AplicacionException, IOException {
         if (event.getCode() == event.getCode().ENTER) {
             comprobacionLogin((Node) event.getSource());
         }
 
     }
 
-    private void comprobacionLogin(Node nodo) throws AplicacionException {
+    private void comprobacionLogin(Node nodo) throws AplicacionException, IOException {
 
         fieldUsuario.setStyle(null);
         fieldContraseña.setStyle(null);
@@ -74,14 +75,11 @@ public class LoginController implements Initializable {
             Usuario user = null;
             user = LogicLogin.verificarLogin(fieldUsuario.getText(), fieldContraseña.getText());
 
-//            if (!user.getUsuario().equals(fieldUsuario.getText())) {
-//                mostrarError("Usuario no encontrado");
-//            }
             LoginSucces(nodo);
         }
     }
 
-    private void LoginSucces(Node source) {
+    private void LoginSucces(Node source) throws IOException {
 
         String escena;
 
@@ -92,21 +90,9 @@ public class LoginController implements Initializable {
         } else {
             escena = "PantallaPrincipal.fxml";
         }
+        GestorEscenas escenas = new GestorEscenas();
+        escenas.cambioEscena("MechanicalZ", escena, source);
 
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + escena));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
-            scene.getStylesheets().add("/styles/Styles.css");
-            stage.setTitle("MechanicalZ");
-            stage.setScene(scene);
-            stage.show();
-            Stage thisStage = (Stage) source.getScene().getWindow();
-            thisStage.close();
-        } catch (IOException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
     private void mostrarError(String txt) {

@@ -1,5 +1,6 @@
 package Presentacion;
 
+import Aplicacion.GestorEscenas;
 import Aplicacion.LogicPrimerUsuario;
 import Aplicacion.Modelo.Usuario;
 import java.io.IOException;
@@ -48,7 +49,33 @@ public class PrimerUsuario implements Initializable {
     }
 
     @FXML
-    private void btnEntrarLogInAction(ActionEvent event) {
+    private void btnEntrarLogInAction(ActionEvent event) throws IOException {
+        comprobacionRegistro((Node) event.getSource());
+
+    }
+
+    @FXML
+    private void OnKeyPressedFondo(KeyEvent event) throws IOException {
+        if (event.getCode() == event.getCode().ENTER) {
+            comprobacionRegistro((Node) event.getSource());
+        }
+    }
+
+    private void mostrarError(String txt) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("ERROR");
+        alert.setContentText(txt);
+        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
+
+        alert.showAndWait();
+    }
+
+    private void CambioEscena(Node nodo) throws IOException {
+        GestorEscenas escenas = new GestorEscenas();
+        escenas.cambioEscena("MechanicalZ", "PrincipalAdmin.fxml", nodo);
+    }
+
+    private void comprobacionRegistro(Node nodo) throws IOException {
         fieldUsuario.setStyle(null);
         fieldContraseña.setStyle(null);
         fieldContraseña2.setStyle(null);
@@ -76,41 +103,9 @@ public class PrimerUsuario implements Initializable {
                 Usuario user = new Usuario(fieldUsuario.getText(), fieldContraseña.getText(), "admin");
                 LogicPrimerUsuario.añadir(user);
 
-                CambioEscena(event);
+                CambioEscena(nodo);
             }
 
-        }
-
-    }
-
-    @FXML
-    private void OnKeyPressedFondo(KeyEvent event) {
-    }
-
-    private void mostrarError(String txt) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("ERROR");
-        alert.setContentText(txt);
-        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
-
-        alert.showAndWait();
-    }
-
-    private void CambioEscena(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/Login.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
-            scene.getStylesheets().add("/styles/Styles.css");
-            stage.setTitle("Login");
-            stage.setScene(scene);
-            stage.show();
-            Node source = (Node) event.getSource();
-            Stage thisStage = (Stage) source.getScene().getWindow();
-            thisStage.close();
-        } catch (IOException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

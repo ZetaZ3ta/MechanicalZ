@@ -25,17 +25,17 @@ public class LogicUsuario {
 
     }
 
-    public static int getNumUsers() {
-
-        return UsuarioBD.getNumUsuarios();
-
-    }
-
     public static ArrayList<Usuario> getUsuarios() throws AplicacionException {
 
         ArrayList<Usuario> ret = UsuarioBD.getUsuarios();
 
         return ret;
+
+    }
+
+    public static int getNumUsers() {
+
+        return UsuarioBD.getNumUsuarios();
 
     }
 

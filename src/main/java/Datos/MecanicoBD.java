@@ -17,7 +17,6 @@ public class MecanicoBD {
         ses.beginTransaction();
         ses.save(m);
         ses.getTransaction().commit();
-        ses.close();
     }
 
     public static void eliminar(Mecanico m) throws DatosException {
@@ -25,7 +24,6 @@ public class MecanicoBD {
         ses.beginTransaction();
         ses.delete(m);
         ses.getTransaction().commit();
-        ses.close();
     }
 
     public static void actualizar(Mecanico m1) throws DatosException {
@@ -33,15 +31,12 @@ public class MecanicoBD {
         ses.beginTransaction();
         ses.update(m1);
         ses.getTransaction().commit();
-        ses.close();
     }
 
     public static ArrayList<Mecanico> getMecanicos() throws DatosException {
         Session ses = SingleSession.getSesio();
         Query query = ses.createQuery("FROM Mecanico");
         ArrayList<Mecanico> m = (ArrayList<Mecanico>) query.list();
-
-        ses.close();
 
         return m;
 

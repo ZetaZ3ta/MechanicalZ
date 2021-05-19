@@ -1,6 +1,7 @@
 package Presentacion;
 
 import Aplicacion.AplicacionException;
+import Aplicacion.GestorEscenas;
 import Aplicacion.LogicMoto;
 import Aplicacion.Modelo.Moto;
 import java.io.IOException;
@@ -108,8 +109,9 @@ public class AdministrarMotosController implements Initializable {
     }
 
     @FXML
-    private void btnAtrasAction(ActionEvent event) {
-        LoginSucces((Node) event.getSource());
+    private void btnAtrasAction(ActionEvent event) throws IOException {
+        GestorEscenas escenas = new GestorEscenas();
+        escenas.cambioEscena("MechanicalZ", "PantallaPrincipal.fxml", (Node) event.getSource());
     }
 
     @FXML
@@ -168,23 +170,6 @@ public class AdministrarMotosController implements Initializable {
         fieldModelo.setText(m.getModelo());
         fieldMatricula.setText(m.getMatricula());
         fieldKM.setText(String.valueOf(m.getKM()));
-    }
-
-    private void LoginSucces(Node source) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/PantallaPrincipal.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
-            scene.getStylesheets().add("/styles/Styles.css");
-            stage.setTitle("MechanicalZ");
-            stage.setScene(scene);
-            stage.show();
-            Stage thisStage = (Stage) source.getScene().getWindow();
-            thisStage.close();
-        } catch (IOException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-        }
     }
 
 }

@@ -1,6 +1,7 @@
 package Presentacion;
 
 import Aplicacion.AplicacionException;
+import Aplicacion.GestorEscenas;
 import Aplicacion.LogicCliente;
 import Aplicacion.LogicFactura;
 import Aplicacion.LogicSecretario;
@@ -89,13 +90,6 @@ public class AdministrarFacturasController implements Initializable {
     }
 
     @FXML
-    private void btnAtrasAction(ActionEvent event) {
-
-        LoginSucces((Node) event.getSource());
-
-    }
-
-    @FXML
     private void btnAñadirAction(ActionEvent event) throws AplicacionException, DatosException {
         Cliente c = LogicCliente.getCliente((String) choiceCliente.getSelectionModel().getSelectedItem());
         Secretario s = LogicSecretario.getSecretario((String) choiceSecretario.getSelectionModel().getSelectedItem());
@@ -123,28 +117,17 @@ public class AdministrarFacturasController implements Initializable {
     }
 
     @FXML
+    private void btnAtrasAction(ActionEvent event) throws IOException {
+        GestorEscenas escenas = new GestorEscenas();
+        escenas.cambioEscena("MechanicalZ", "PantallaPrincipal.fxml", (Node) event.getSource());
+    }
+
+    @FXML
     private void onMouseClickedTableClientes(MouseEvent event) {
         Factura factura = tvFacturas.getSelectionModel().getSelectedItem();
 
         if (factura != null) {
             setFacturaToView(factura);
-        }
-    }
-
-    private void LoginSucces(Node source) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/PantallaPrincipal.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
-            scene.getStylesheets().add("/styles/Styles.css");
-            stage.setTitle("MechanicalZ");
-            stage.setScene(scene);
-            stage.show();
-            Stage thisStage = (Stage) source.getScene().getWindow();
-            thisStage.close();
-        } catch (IOException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

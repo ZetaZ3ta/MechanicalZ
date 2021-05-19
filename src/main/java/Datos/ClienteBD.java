@@ -17,7 +17,6 @@ public class ClienteBD {
         ses.beginTransaction();
         ses.save(c);
         ses.getTransaction().commit();
-        ses.close();
     }
 
     public static void eliminar(Cliente c) throws DatosException {
@@ -25,7 +24,6 @@ public class ClienteBD {
         ses.beginTransaction();
         ses.delete(c);
         ses.getTransaction().commit();
-        ses.close();
     }
 
     public static void actualizar(Cliente c1) throws DatosException {
@@ -33,15 +31,12 @@ public class ClienteBD {
         ses.beginTransaction();
         ses.update(c1);
         ses.getTransaction().commit();
-        ses.close();
     }
 
     public static ArrayList<Cliente> getClientes() throws DatosException {
         Session ses = SingleSession.getSesio();
         Query query = ses.createQuery("FROM Cliente");
         ArrayList<Cliente> c = (ArrayList<Cliente>) query.list();
-
-        ses.close();
 
         return c;
 

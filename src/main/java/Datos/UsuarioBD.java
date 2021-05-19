@@ -38,7 +38,6 @@ public class UsuarioBD {
         ses.beginTransaction();
         ses.save(u);
         ses.getTransaction().commit();
-        ses.close();
     }
 
     public static void eliminar(Usuario u) {
@@ -46,7 +45,6 @@ public class UsuarioBD {
         ses.beginTransaction();
         ses.delete(u);
         ses.getTransaction().commit();
-        ses.close();
     }
 
     public static void actualizar(Usuario u1) {
@@ -54,7 +52,6 @@ public class UsuarioBD {
         ses.beginTransaction();
         ses.update(u1);
         ses.getTransaction().commit();
-        ses.close();
     }
 
     public static ArrayList<Usuario> getUsuarios() {
@@ -62,15 +59,6 @@ public class UsuarioBD {
         Query query = ses.createQuery("FROM Usuario");
         ArrayList<Usuario> u = (ArrayList<Usuario>) query.list();
 
-        ses.close();
-
         return u;
     }
-
-    public static void getRol(String usuario) {
-        Session ses = SingleSession.getSesio();
-        Query query = ses.createQuery("FROM Usuario");
-        
-    }
-
 }

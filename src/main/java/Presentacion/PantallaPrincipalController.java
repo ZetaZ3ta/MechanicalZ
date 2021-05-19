@@ -1,5 +1,6 @@
 package Presentacion;
 
+import Aplicacion.GestorEscenas;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -35,7 +36,7 @@ public class PantallaPrincipalController implements Initializable {
     }
 
     @FXML
-    private void btnAdminClientesAction(ActionEvent event) {
+    private void btnAdminClientesAction(ActionEvent event) throws IOException {
         Escena = "AdministrarClientes.fxml";
         tituloEscena = "Administrar Clientes";
 
@@ -44,7 +45,7 @@ public class PantallaPrincipalController implements Initializable {
     }
 
     @FXML
-    private void btnAdminMotosAction(ActionEvent event) {
+    private void btnAdminMotosAction(ActionEvent event) throws IOException {
         Escena = "AdministrarMotos.fxml";
         tituloEscena = "Administrar Motos";
 
@@ -52,37 +53,24 @@ public class PantallaPrincipalController implements Initializable {
     }
 
     @FXML
-    private void btnAdminFacturasAction(ActionEvent event) {
+    private void btnAdminFacturasAction(ActionEvent event) throws IOException {
         Escena = "AdministrarFacturas.fxml";
         tituloEscena = "Administrar Facturas";
-        
+
         CambioEscena(event);
     }
 
     @FXML
-    private void btnCerrarAction(ActionEvent event) {
+    private void btnCerrarAction(ActionEvent event) throws IOException {
         Escena = "Login.fxml";
         tituloEscena = "Login";
         CambioEscena(event);
 
     }
 
-    private void CambioEscena(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + Escena));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
-            scene.getStylesheets().add("/styles/Styles.css");
-            stage.setTitle(tituloEscena);
-            stage.setScene(scene);
-            stage.show();
-            Node source = (Node) event.getSource();
-            Stage thisStage = (Stage) source.getScene().getWindow();
-            thisStage.close();
-        } catch (IOException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    private void CambioEscena(ActionEvent event) throws IOException {
+        GestorEscenas escenas = new GestorEscenas();
+        escenas.cambioEscena(tituloEscena, Escena, (Node) event.getSource());
     }
 
     private void mostrarError(String txt) {

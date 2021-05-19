@@ -1,7 +1,6 @@
 package Aplicacion;
 
 import Aplicacion.Modelo.Cliente;
-import Aplicacion.Modelo.Usuario;
 import Datos.ClienteBD;
 import Datos.DatosException;
 import java.util.ArrayList;
@@ -18,7 +17,7 @@ public class LogicCliente {
             ClienteBD.añadir(c);
 
         } catch (DatosException ex) {
-            throw new AplicacionException("Error añadir moto: " + ex.toString());
+            throw new AplicacionException("Error añadir cliente: " + ex.toString());
         }
 
     }
@@ -29,7 +28,7 @@ public class LogicCliente {
             ClienteBD.eliminar(c);
 
         } catch (DatosException ex) {
-            throw new AplicacionException("Error añadir moto: " + ex.toString());
+            throw new AplicacionException("Error eliminar cliente: " + ex.toString());
         }
     }
 
@@ -37,7 +36,7 @@ public class LogicCliente {
         try {
             ClienteBD.actualizar(c1);
         } catch (DatosException ex) {
-            throw new AplicacionException("Error añadir moto: " + ex.toString());
+            throw new AplicacionException("Error actualizar cliente: " + ex.toString());
         }
 
     }

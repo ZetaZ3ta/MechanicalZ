@@ -1,6 +1,7 @@
 package Presentacion;
 
 import Aplicacion.AplicacionException;
+import Aplicacion.GestorEscenas;
 import Aplicacion.LogicCliente;
 import Aplicacion.LogicMoto;
 import Aplicacion.Modelo.Cliente;
@@ -143,8 +144,9 @@ public class AdministrarClientesController implements Initializable {
     }
 
     @FXML
-    private void btnAtrasAction(ActionEvent event) {
-        LoginSucces((Node) event.getSource());
+    private void btnAtrasAction(ActionEvent event) throws IOException {
+        GestorEscenas escenas = new GestorEscenas();
+        escenas.cambioEscena("MechanicalZ", "PantallaPrincipal.fxml", (Node) event.getSource());
     }
 
     private void mostrarError(String txt) {
@@ -188,27 +190,6 @@ public class AdministrarClientesController implements Initializable {
         fieldTelefono.setText(String.valueOf(c.getTelefono()));
         fieldDireccion.setText(c.getDireccion());
         fieldFechaNacimiento.setValue(c.getFecha_Nacimiento().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-    }
-
-    private void LoginSucces(Node source) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/PantallaPrincipal.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
-            scene.getStylesheets().add("/styles/Styles.css");
-            stage.setTitle("MechanicalZ");
-            stage.setScene(scene);
-            stage.show();
-            Stage thisStage = (Stage) source.getScene().getWindow();
-            thisStage.close();
-        } catch (IOException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    @FXML
-    private void fieldChangedFiltrar(InputMethodEvent event) {
     }
 
 }
