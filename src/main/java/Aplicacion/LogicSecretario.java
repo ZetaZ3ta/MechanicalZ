@@ -1,8 +1,6 @@
 package Aplicacion;
 
-import Aplicacion.Modelo.Cliente;
 import Aplicacion.Modelo.Secretario;
-import Datos.ClienteBD;
 import Datos.DatosException;
 import Datos.SecretarioBD;
 import java.util.ArrayList;

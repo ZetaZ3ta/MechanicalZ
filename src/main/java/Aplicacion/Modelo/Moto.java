@@ -7,7 +7,7 @@ import javax.persistence.Table;
 
 /**
  *
- * @author ZetaZeta
+ * @author Victor
  */
 @Entity
 @Table

@@ -2,7 +2,7 @@ package Datos;
 
 /**
  *
- * @author ZetaZeta
+ * @author Victor
  */
 public class DatosException extends Exception {
 

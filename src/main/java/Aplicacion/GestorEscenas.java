@@ -9,7 +9,7 @@ import javafx.stage.Stage;
 
 /**
  *
- * @author ZetaZeta
+ * @author Victor
  */
 public class GestorEscenas {
 

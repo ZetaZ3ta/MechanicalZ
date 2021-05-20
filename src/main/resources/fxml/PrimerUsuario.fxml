@@ -36,7 +36,7 @@
       </Label>
       <PasswordField fx:id="fieldContraseña2" layoutX="86.0" layoutY="366.0" />
       <Label fx:id="errorContraseña1" layoutX="87.0" layoutY="391.0" text="Campo contraseña vacio!" textFill="RED" visible="false" />
-      <Button fx:id="btnEntrarLogIn" layoutX="103.0" layoutY="439.0" mnemonicParsing="false" onAction="#btnEntrarLogInAction" prefHeight="25.0" text="Crear usuario">
+      <Button layoutX="103.0" layoutY="439.0" mnemonicParsing="false" onAction="#btnEntrarLogInAction" prefHeight="25.0" text="Crear usuario">
          <font>
             <Font size="15.0" />
          </font>

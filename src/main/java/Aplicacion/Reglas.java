@@ -2,7 +2,7 @@ package Aplicacion;
 
 /**
  *
- * @author ZetaZeta
+ * @author Victor
  */
 public class Reglas {
     public static void DNI() {

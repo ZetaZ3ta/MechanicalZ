@@ -2,7 +2,7 @@ package Aplicacion;
 
 /**
  *
- * @author ZetaZeta
+ * @author Victor
  */
 public class AplicacionException extends Exception {
 

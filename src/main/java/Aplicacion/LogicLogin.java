@@ -5,13 +5,19 @@ import Datos.UsuarioBD;
 
 /**
  *
- * @author ZetaZeta
+ * @author Victor
  */
 public class LogicLogin {
 
-    public static Usuario verificarLogin(String usuario, String contraseña) throws AplicacionException {
+    public static boolean verificarLogin(String usuario, String contraseña) throws AplicacionException {
 
-        return UsuarioBD.getUsuario(usuario);
+        Usuario u = UsuarioBD.getUsuario(usuario);
+
+        if (!u.getContraseña().equals(contraseña)) {
+            return false;
+        } else {
+            return true;
+        }
 
     }
 }

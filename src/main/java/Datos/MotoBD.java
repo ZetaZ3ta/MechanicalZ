@@ -8,7 +8,7 @@ import org.hibernate.Session;
 
 /**
  *
- * @author ZetaZeta
+ * @author Victor
  */
 public class MotoBD {
 

@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author ZetaZeta
+ * @author Victor
  */
 public class LogicUsuario {
 
