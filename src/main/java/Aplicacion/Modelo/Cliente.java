@@ -43,7 +43,11 @@ public class Cliente {
     @JoinColumn(name = "Dueño")
     private List<Moto> Motos;
 
-    public Cliente(String DNI, String Nombre, String Apellidos, String Direccion, int Telefono, Date Fecha_Nacimiento, List<Moto> Motos) {
+    @OneToMany
+    @JoinColumn(name = "Cliente")
+    private List<Factura> Facturas;
+
+    public Cliente(String DNI, String Nombre, String Apellidos, String Direccion, int Telefono, Date Fecha_Nacimiento, List<Moto> Motos, List<Factura> Facturas) {
         this.DNI = DNI;
         this.Nombre = Nombre;
         this.Apellidos = Apellidos;
@@ -51,6 +55,7 @@ public class Cliente {
         this.Telefono = Telefono;
         this.Fecha_Nacimiento = Fecha_Nacimiento;
         this.Motos = Motos;
+        this.Facturas = Facturas;
     }
 
     public Cliente() {
@@ -112,9 +117,17 @@ public class Cliente {
         this.Motos = Motos;
     }
 
+    public List<Factura> getFactura() {
+        return Facturas;
+    }
+
+    public void setFactura(List<Factura> Factura) {
+        this.Facturas = Factura;
+    }
+
     @Override
     public String toString() {
-        return "Cliente{" + "DNI=" + DNI + ", Nombre=" + Nombre + ", Apellidos=" + Apellidos + ", Direccion=" + Direccion + ", Telefono=" + Telefono + ", Fecha_Nacimiento=" + Fecha_Nacimiento + ", Motos=" + Motos + '}';
+        return "Cliente{" + "DNI=" + DNI + ", Nombre=" + Nombre + ", Apellidos=" + Apellidos + ", Direccion=" + Direccion + ", Telefono=" + Telefono + ", Fecha_Nacimiento=" + Fecha_Nacimiento + ", Motos=" + Motos + ", Factura=" + Facturas + '}';
     }
 
 }

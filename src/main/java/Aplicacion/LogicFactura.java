@@ -1,5 +1,6 @@
 package Aplicacion;
 
+import Aplicacion.Modelo.Cliente;
 import Aplicacion.Modelo.Factura;
 import Datos.DatosException;
 import Datos.FacturaBD;

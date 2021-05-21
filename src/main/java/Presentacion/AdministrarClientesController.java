@@ -76,8 +76,8 @@ public class AdministrarClientesController implements Initializable {
         Date date = Date.from(instant);
         List<Moto> motos = LogicMoto.getMotos();
         try {
-
-            Cliente c = new Cliente(fieldDNI.getText(), fieldNombre.getText(), fieldApellidos.getText(), fieldDireccion.getText(), Integer.parseInt(fieldTelefono.getText()), date, motos);
+            Cliente c = null;
+            //Cliente c = new Cliente(fieldDNI.getText(), fieldNombre.getText(), fieldApellidos.getText(), fieldDireccion.getText(), Integer.parseInt(fieldTelefono.getText()), date, motos);
             LogicCliente.añadir(c);
 
             mostrarClientes();
@@ -109,8 +109,8 @@ public class AdministrarClientesController implements Initializable {
             Instant instant = Instant.from(fieldFechaNacimiento.getValue().atStartOfDay(ZoneId.systemDefault()));
             Date date = Date.from(instant);
             List<Moto> motos = LogicMoto.getMotos();
-
-            Cliente c2 = new Cliente(fieldDNI.getText(), fieldNombre.getText(), fieldApellidos.getText(), fieldDireccion.getText(), Integer.parseInt(fieldTelefono.getText()), date, motos);
+            Cliente c2 = null;
+            //Cliente c2 = new Cliente(fieldDNI.getText(), fieldNombre.getText(), fieldApellidos.getText(), fieldDireccion.getText(), Integer.parseInt(fieldTelefono.getText()), date, motos);
 
             LogicCliente.actualizar(c2);
             mostrarClientes();

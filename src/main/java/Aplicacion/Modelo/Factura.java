@@ -1,12 +1,10 @@
 package Aplicacion.Modelo;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -31,22 +29,14 @@ public class Factura {
     @Column
     private int IVA;
 
-    @OneToOne(cascade = {CascadeType.ALL})
-    private Cliente Cliente;
-
-    @OneToOne(cascade = {CascadeType.ALL})
-    private Secretario Secretario;
-
     public Factura() {
     }
 
-    public Factura(int ID, String Descripcion, int Precio, int IVA, Cliente Cliente, Secretario Secretario) {
+    public Factura(int ID, String Descripcion, int Precio, int IVA) {
         this.ID = ID;
         this.Descripcion = Descripcion;
         this.Precio = Precio;
         this.IVA = IVA;
-        this.Cliente = Cliente;
-        this.Secretario = Secretario;
     }
 
     public int getID() {
@@ -81,25 +71,9 @@ public class Factura {
         this.IVA = IVA;
     }
 
-    public Cliente getCliente() {
-        return Cliente;
-    }
-
-    public void setCliente(Cliente Cliente) {
-        this.Cliente = Cliente;
-    }
-
-    public Secretario getSecretario() {
-        return Secretario;
-    }
-
-    public void setSecretario(Secretario Secretario) {
-        this.Secretario = Secretario;
-    }
-
     @Override
     public String toString() {
-        return "Factura{" + "ID=" + ID + ", Descripcion=" + Descripcion + ", Precio=" + Precio + ", IVA=" + IVA + ", Cliente=" + Cliente + ", Secretario=" + Secretario + '}';
+        return "Factura{" + "ID=" + ID + ", Descripcion=" + Descripcion + ", Precio=" + Precio + ", IVA=" + IVA + '}';
     }
 
 }

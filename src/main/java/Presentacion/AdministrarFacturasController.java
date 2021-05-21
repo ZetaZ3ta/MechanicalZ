@@ -85,23 +85,26 @@ public class AdministrarFacturasController implements Initializable {
 
     @FXML
     private void btnAñadirAction(ActionEvent event) throws AplicacionException, DatosException {
-        Cliente c = LogicCliente.getCliente((String) choiceCliente.getSelectionModel().getSelectedItem());
-        Secretario s = LogicSecretario.getSecretario((String) choiceSecretario.getSelectionModel().getSelectedItem());
-
-        Factura f = new Factura(Integer.parseInt(fieldID.getText()), fieldDescripcion.getText(), Integer.parseInt(fieldPrecio.getText()), 21, c, s);
-        LogicFactura.añadir(f);
-
-        mostrarFacturas();
-        limpiarCampos();
+//        Cliente c = LogicCliente.getCliente((String) choiceCliente.getSelectionModel().getSelectedItem());
+//        Secretario s = LogicSecretario.getSecretario((String) choiceSecretario.getSelectionModel().getSelectedItem());
+//        Factura f = null;
+//        //Factura f = new Factura(Integer.parseInt(fieldID.getText()), fieldDescripcion.getText(), Integer.parseInt(fieldPrecio.getText()), 21, c, s);
+//        LogicFactura.añadir(f);
+//
+//        mostrarFacturas();
+//        limpiarCampos();
+        mostrarError("No implementado aun!");
     }
 
     @FXML
     private void btnEliminarAction(ActionEvent event) {
+        mostrarError("No implementado aun!");
 
     }
 
     @FXML
     private void btnActualizarAction(ActionEvent event) {
+        mostrarError("No implementado aun!");
 
     }
 
@@ -152,8 +155,10 @@ public class AdministrarFacturasController implements Initializable {
         fieldID.setText(String.valueOf(u.getID()));
         fieldDescripcion.setText(u.getDescripcion());
         fieldPrecio.setText(String.valueOf(u.getPrecio()));
-        choiceCliente.setValue(u.getCliente().getNombre() + u.getCliente().getApellidos());
-        choiceSecretario.setValue(u.getSecretario().getNombre() + u.getCliente().getApellidos());
+        // choiceCliente.setValue(u.getCliente().getNombre() + u.getCliente().getApellidos());
+        //choiceCliente.setValue(u.getCliente_DNI());
+        //choiceSecretario.setValue(u.getSecretario().getNombre() + u.getCliente().getApellidos());
+        //choiceSecretario.setValue(u.getSecretario_DNI());
     }
 
 }

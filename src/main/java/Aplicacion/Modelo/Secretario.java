@@ -6,7 +6,10 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -36,16 +39,21 @@ public class Secretario {
     @ManyToMany(cascade = {CascadeType.ALL}, mappedBy = "secretarios")
     private List<Proveedor> proveedores;
 
-    public Secretario(String DNI, String Nombre, String Apellidos, int Telefono, Date Fecha_Nacimiento) {
+    @OneToMany
+    @JoinColumn(name = "Secretario")
+    private List<Factura> Facturas;
+
+    public Secretario(String DNI, String Nombre, String Apellidos, int Telefono, Date Fecha_Nacimiento, List<Factura> Facturas) {
         this.DNI = DNI;
         this.Nombre = Nombre;
         this.Apellidos = Apellidos;
         this.Telefono = Telefono;
         this.Fecha_Nacimiento = Fecha_Nacimiento;
+        this.Facturas = Facturas;
     }
-    
+
     public Secretario() {
-        
+
     }
 
     public String getDNI() {
@@ -88,9 +96,25 @@ public class Secretario {
         this.Fecha_Nacimiento = Fecha_Nacimiento;
     }
 
+    public List<Proveedor> getProveedores() {
+        return proveedores;
+    }
+
+    public void setProveedores(List<Proveedor> proveedores) {
+        this.proveedores = proveedores;
+    }
+
+    public List<Factura> getFactura() {
+        return Facturas;
+    }
+
+    public void setFactura(List<Factura> Factura) {
+        this.Facturas = Factura;
+    }
+
     @Override
     public String toString() {
-        return "Secretario{" + "DNI=" + DNI + ", Nombre=" + Nombre + ", Apellidos=" + Apellidos + ", Telefono=" + Telefono + ", Fecha_Nacimiento=" + Fecha_Nacimiento + '}';
+        return "Secretario{" + "DNI=" + DNI + ", Nombre=" + Nombre + ", Apellidos=" + Apellidos + ", Telefono=" + Telefono + ", Fecha_Nacimiento=" + Fecha_Nacimiento + ", proveedores=" + proveedores + ", Factura=" + Facturas + '}';
     }
 
 }

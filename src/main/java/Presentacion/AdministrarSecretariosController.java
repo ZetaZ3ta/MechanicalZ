@@ -70,8 +70,8 @@ public class AdministrarSecretariosController implements Initializable {
         Instant instant = Instant.from(fieldFecha.getValue().atStartOfDay(ZoneId.systemDefault()));
         Date date = Date.from(instant);
         try {
-
-            Secretario s = new Secretario(fieldDNI.getText(), fieldNombre.getText(), fieldApellidos.getText(), Integer.parseInt(fieldTelefono.getText()), date);
+            Secretario s = null;
+            //Secretario s = new Secretario(fieldDNI.getText(), fieldNombre.getText(), fieldApellidos.getText(), Integer.parseInt(fieldTelefono.getText()), date);
             LogicSecretario.añadir(s);
 
             mostrarSecretarios();
@@ -100,8 +100,8 @@ public class AdministrarSecretariosController implements Initializable {
         if (s1 != null) {
             Instant instant = Instant.from(fieldFecha.getValue().atStartOfDay(ZoneId.systemDefault()));
             Date date = Date.from(instant);
-
-            Secretario s2 = new Secretario(fieldDNI.getText(), fieldNombre.getText(), fieldApellidos.getText(), Integer.parseInt(fieldTelefono.getText()), date);
+            Secretario s2 = null;
+            //Secretario s2 = new Secretario(fieldDNI.getText(), fieldNombre.getText(), fieldApellidos.getText(), Integer.parseInt(fieldTelefono.getText()), date);
 
             LogicSecretario.actualizar(s2);
             mostrarSecretarios();
