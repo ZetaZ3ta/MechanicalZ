@@ -82,7 +82,7 @@ public class PrimerUsuario implements Initializable {
         } else {
 
             if (!(fieldContraseña.getText().isEmpty()) && !(fieldContraseña2.getText().isEmpty())) {
-                Usuario user = new Usuario(fieldUsuario.getText(), fieldContraseña.getText(), "admin");
+                Usuario user = new Usuario(fieldUsuario.getText(), fieldContraseña.getText(), "Admin");
                 LogicUsuario.añadir(user);
 
                 CambioEscena(nodo);

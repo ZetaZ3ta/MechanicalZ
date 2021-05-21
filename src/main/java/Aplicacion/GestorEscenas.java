@@ -1,11 +1,13 @@
 package Aplicacion;
 
 import java.io.IOException;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import org.hibernate.Session;
 
 /**
  *
@@ -21,7 +23,7 @@ public class GestorEscenas {
         stage.setTitle(nombreEscena);
         stage.setScene(scene);
         stage.show();
-        //stage.setOnCloseRequest(e -> cerrar());
+        stage.setOnCloseRequest(e -> cerrar());
         Stage thisStage = (Stage) source.getScene().getWindow();
         thisStage.close();
     }
@@ -33,11 +35,14 @@ public class GestorEscenas {
         scene = new Scene(root);
         stage.setTitle(nombreEscena);
         stage.setScene(scene);
+        stage.setOnCloseRequest(e -> cerrar());
         stage.show();
     }
 
     private void cerrar() {
-
+        Platform.exit();
+        Session ses = SingleSession.getSesio();
+        ses.close();
     }
 
 }

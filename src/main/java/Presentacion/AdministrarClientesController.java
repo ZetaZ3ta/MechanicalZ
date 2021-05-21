@@ -6,6 +6,7 @@ import Aplicacion.LogicCliente;
 import Aplicacion.LogicMoto;
 import Aplicacion.Modelo.Cliente;
 import Aplicacion.Modelo.Moto;
+import Aplicacion.Reglas;
 import java.io.IOException;
 import java.net.URL;
 import java.time.Instant;
@@ -71,19 +72,26 @@ public class AdministrarClientesController implements Initializable {
 
     @FXML
     private void btnAñadirAction(ActionEvent event) throws AplicacionException {
+        if (comprobarCampos()) {
+            String msg = Reglas.DNI(fieldDNI.getText());
+            if (msg.equals("")) {
+                Instant instant = Instant.from(fieldFechaNacimiento.getValue().atStartOfDay(ZoneId.systemDefault()));
+                Date date = Date.from(instant);
+                List<Moto> motos = LogicMoto.getMotos();
+                try {
+                    Cliente c = new Cliente(fieldDNI.getText(), fieldNombre.getText(), fieldApellidos.getText(), fieldDireccion.getText(), Integer.parseInt(fieldTelefono.getText()), date, motos);
+                    LogicCliente.añadir(c);
 
-        Instant instant = Instant.from(fieldFechaNacimiento.getValue().atStartOfDay(ZoneId.systemDefault()));
-        Date date = Date.from(instant);
-        List<Moto> motos = LogicMoto.getMotos();
-        try {
-            Cliente c = new Cliente(fieldDNI.getText(), fieldNombre.getText(), fieldApellidos.getText(), fieldDireccion.getText(), Integer.parseInt(fieldTelefono.getText()), date, motos);
-            LogicCliente.añadir(c);
-
-            mostrarClientes();
-            limpiarCampos();
-        } catch (AplicacionException ex) {
-            Logger.getLogger(AdministrarClientesController.class.getName()).log(Level.SEVERE, null, ex);
+                    mostrarClientes();
+                    limpiarCampos();
+                } catch (AplicacionException ex) {
+                    Logger.getLogger(AdministrarClientesController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                mostrarError(msg);
+            }
         }
+
     }
 
     @FXML
@@ -184,6 +192,43 @@ public class AdministrarClientesController implements Initializable {
         fieldTelefono.setText(String.valueOf(c.getTelefono()));
         fieldDireccion.setText(c.getDireccion());
         fieldFechaNacimiento.setValue(c.getFecha_Nacimiento().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+    }
+
+    private boolean comprobarCampos() {
+        fieldDNI.setStyle(null);
+        fieldNombre.setStyle(null);
+        fieldApellidos.setStyle(null);
+        fieldDireccion.setStyle(null);
+        fieldTelefono.setStyle(null);
+        fieldFechaNacimiento.setStyle(null);
+
+        boolean campos = true;
+        if (fieldDNI.getText().isEmpty()) {
+            fieldDNI.setStyle("-fx-border-color: red;");
+            campos = false;
+        }
+        if (fieldNombre.getText().isEmpty()) {
+            fieldNombre.setStyle("-fx-border-color: red;");
+            campos = false;
+        }
+        if (fieldApellidos.getText().isEmpty()) {
+            fieldApellidos.setStyle("-fx-border-color: red;");
+            campos = false;
+        }
+        if (fieldDireccion.getText().isEmpty()) {
+            fieldDireccion.setStyle("-fx-border-color: red;");
+            campos = false;
+        }
+        if (fieldTelefono.getText().isEmpty()) {
+            fieldTelefono.setStyle("-fx-border-color: red;");
+            campos = false;
+        }
+        if (fieldFechaNacimiento.getValue() == null) {
+            fieldFechaNacimiento.setStyle("-fx-border-color: red;");
+            campos = false;
+        }
+
+        return campos;
     }
 
 }
