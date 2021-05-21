@@ -76,7 +76,7 @@ public class AdministrarMecanicosController implements Initializable {
     @FXML
     private void btnAtrasAction(ActionEvent event) throws IOException {
         GestorEscenas escenas = new GestorEscenas();
-        escenas.cambioEscena("MechanicalZ", "PantallaPrincipal.fxml", (Node) event.getSource());
+        escenas.cambioEscena("MechanicalZ", "PrincipalAdmin.fxml", (Node) event.getSource());
     }
 
     @FXML

@@ -15,9 +15,9 @@ public class MechanicalZ extends Application {
 
     @Override
     public void start(Stage stage) throws Exception {
-        SingleSession.getSesio();
-        int numUsers = LogicUsuario.getNumUsers();
 
+        int numUsers = LogicUsuario.getNumUsers();
+        System.out.println(numUsers);
         if (numUsers == 0) {
             nombreEscena = "Registro";
             escenaFxml = "PrimerUsuario.fxml";

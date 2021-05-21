@@ -1,5 +1,6 @@
 package Datos;
 
+import Aplicacion.Modelo.Cliente;
 import Aplicacion.Modelo.Usuario;
 import Aplicacion.SingleSession;
 import java.util.ArrayList;
@@ -23,14 +24,15 @@ public class UsuarioBD {
 
     public static int getNumUsuarios() {
         Session ses = SingleSession.getSesio();
+        //ArrayList<Usuario> lista = new ArrayList<>();
 
-        Query query = ses.createQuery("SELECT count(*) FROM Usuario");
-        Long numUsuarios = (Long) query.uniqueResult();
+        Query query = ses.createQuery("FROM Usuario");
+        //ses.createSQLQuery("SELECT count(*) FROM Usuario");
+        ArrayList<Usuario> u = (ArrayList<Usuario>) query.list();
+        return u.size();
 
-        int numUsuariosInt = numUsuarios.intValue();
-
-        return numUsuariosInt;
-
+        //int numUsuariosInt = numUsuarios.intValue();
+        //return numUsuariosInt;
     }
 
     public static void añadir(Usuario u) {

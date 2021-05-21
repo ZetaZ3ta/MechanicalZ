@@ -66,7 +66,7 @@ public class AdministrarUsuariosController implements Initializable {
     @FXML
     private void btnAtrasAction(ActionEvent event) throws IOException {
         GestorEscenas escenas = new GestorEscenas();
-        escenas.cambioEscena("MechanicalZ", "PantallaPrincipal.fxml", (Node) event.getSource());
+        escenas.cambioEscena("MechanicalZ", "PrincipalAdmin.fxml", (Node) event.getSource());
 
     }
 
@@ -90,7 +90,7 @@ public class AdministrarUsuariosController implements Initializable {
             LogicUsuario.eliminar(u);
             mostrarUsuarios();
         } else {
-            mostrarError("Selecciona un cliente!");
+            mostrarError("Selecciona un usuario!");
         }
     }
 
@@ -104,7 +104,7 @@ public class AdministrarUsuariosController implements Initializable {
             LogicUsuario.actualizar(u2);
             mostrarUsuarios();
         } else {
-            mostrarError("Selecciona un cliente!");
+            mostrarError("Selecciona un usuario!");
         }
     }
 

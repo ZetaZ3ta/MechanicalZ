@@ -12,17 +12,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table
-public class Mecanico {
-
-    @Id
-    @Column
-    private String DNI;
-
-    @Column
-    private String Nombre;
-
-    @Column
-    private String Apellidos;
+public class Mecanico extends Persona {
 
     @Column
     private int Telefono;
@@ -33,10 +23,8 @@ public class Mecanico {
     @Column
     private boolean Ocupado;
 
-    public Mecanico(String DNI, String Nombre, String Apellidos, int Telefono, Date Fecha_Nacimiento, boolean Ocupado) {
-        this.DNI = DNI;
-        this.Nombre = Nombre;
-        this.Apellidos = Apellidos;
+    public Mecanico(String DNI, String nombre, String apellidos, int Telefono, Date Fecha_Nacimiento, boolean Ocupado) {
+        super(DNI, nombre, apellidos);
         this.Telefono = Telefono;
         this.Fecha_Nacimiento = Fecha_Nacimiento;
         this.Ocupado = Ocupado;
@@ -44,30 +32,6 @@ public class Mecanico {
 
     public Mecanico() {
 
-    }
-
-    public String getDNI() {
-        return DNI;
-    }
-
-    public void setDNI(String DNI) {
-        this.DNI = DNI;
-    }
-
-    public String getNombre() {
-        return Nombre;
-    }
-
-    public void setNombre(String Nombre) {
-        this.Nombre = Nombre;
-    }
-
-    public String getApellidos() {
-        return Apellidos;
-    }
-
-    public void setApellidos(String Apellidos) {
-        this.Apellidos = Apellidos;
     }
 
     public int getTelefono() {
@@ -96,7 +60,7 @@ public class Mecanico {
 
     @Override
     public String toString() {
-        return "Mecanico{" + "DNI=" + DNI + ", Nombre=" + Nombre + ", Apellidos=" + Apellidos + ", Telefono=" + Telefono + ", Fecha_Nacimiento=" + Fecha_Nacimiento + ", Ocupado=" + Ocupado + '}';
+        return "Mecanico{" + "Telefono=" + Telefono + ", Fecha_Nacimiento=" + Fecha_Nacimiento + ", Ocupado=" + Ocupado + '}';
     }
 
 }

@@ -17,12 +17,6 @@
    <left>
       <VBox BorderPane.alignment="TOP_RIGHT">
          <children>
-            <Label prefHeight="30.0" text="ID">
-               <padding>
-                  <Insets left="10.0" />
-               </padding>
-            </Label>
-            <Separator prefHeight="25.0" />
             <Label prefHeight="25.0" text="Descripcion">
                <padding>
                   <Insets left="10.0" />
@@ -52,16 +46,6 @@
    <center>
       <VBox BorderPane.alignment="CENTER">
          <children>
-            <TextField fx:id="fieldID" promptText="ID">
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </TextField>
-            <Separator prefHeight="20.0">
-               <VBox.margin>
-                  <Insets right="10.0" />
-               </VBox.margin>
-            </Separator>
             <TextField fx:id="fieldDescripcion" layoutX="20.0" layoutY="10.0" promptText="Descripcion" />
             <Separator prefHeight="20.0" prefWidth="400.0">
                <VBox.margin>
@@ -94,8 +78,9 @@
                   <TableColumn fx:id="colDescripcion" prefWidth="150.0" text="Descripcion" />
                   <TableColumn fx:id="colPrecio" prefWidth="150.0" text="Precio" />
                   <TableColumn fx:id="colIVA" prefWidth="150.0" text="IVA" />
-                  <TableColumn fx:id="colCliente" prefWidth="150.0" text="Cliente" />
                   <TableColumn fx:id="colSecretario" prefWidth="150.0" text="Secretario" />
+                  <TableColumn fx:id="colCliente" prefWidth="150.0" text="Cliente" />
+                  <TableColumn fx:id="colTotal" prefWidth="150.0" text="Total" />
                </columns>
             </TableView>
          </children>

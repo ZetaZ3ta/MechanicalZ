@@ -5,11 +5,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -18,17 +14,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table
-public class Secretario {
-
-    @Id
-    @Column
-    private String DNI;
-
-    @Column
-    private String Nombre;
-
-    @Column
-    private String Apellidos;
+public class Secretario extends Persona {
 
     @Column
     private int Telefono;
@@ -39,45 +25,21 @@ public class Secretario {
     @ManyToMany(cascade = {CascadeType.ALL}, mappedBy = "secretarios")
     private List<Proveedor> proveedores;
 
-    @OneToMany
-    @JoinColumn(name = "Secretario")
-    private List<Factura> Facturas;
-
-    public Secretario(String DNI, String Nombre, String Apellidos, int Telefono, Date Fecha_Nacimiento, List<Factura> Facturas) {
-        this.DNI = DNI;
-        this.Nombre = Nombre;
-        this.Apellidos = Apellidos;
+    public Secretario(String DNI, String nombre, String apellidos, int Telefono, Date Fecha_Nacimiento, List<Proveedor> proveedores) {
+        super(DNI, nombre, apellidos);
         this.Telefono = Telefono;
         this.Fecha_Nacimiento = Fecha_Nacimiento;
-        this.Facturas = Facturas;
+        this.proveedores = proveedores;
     }
 
+        public Secretario(String DNI, String nombre, String apellidos, int Telefono, Date Fecha_Nacimiento) {
+        super(DNI, nombre, apellidos);
+        this.Telefono = Telefono;
+        this.Fecha_Nacimiento = Fecha_Nacimiento;
+    }
+    
     public Secretario() {
 
-    }
-
-    public String getDNI() {
-        return DNI;
-    }
-
-    public void setDNI(String DNI) {
-        this.DNI = DNI;
-    }
-
-    public String getNombre() {
-        return Nombre;
-    }
-
-    public void setNombre(String Nombre) {
-        this.Nombre = Nombre;
-    }
-
-    public String getApellidos() {
-        return Apellidos;
-    }
-
-    public void setApellidos(String Apellidos) {
-        this.Apellidos = Apellidos;
     }
 
     public int getTelefono() {
@@ -104,17 +66,9 @@ public class Secretario {
         this.proveedores = proveedores;
     }
 
-    public List<Factura> getFactura() {
-        return Facturas;
-    }
-
-    public void setFactura(List<Factura> Factura) {
-        this.Facturas = Factura;
-    }
-
     @Override
     public String toString() {
-        return "Secretario{" + "DNI=" + DNI + ", Nombre=" + Nombre + ", Apellidos=" + Apellidos + ", Telefono=" + Telefono + ", Fecha_Nacimiento=" + Fecha_Nacimiento + ", proveedores=" + proveedores + ", Factura=" + Facturas + '}';
+        return "Secretario{" + "Telefono=" + Telefono + ", Fecha_Nacimiento=" + Fecha_Nacimiento + ", proveedores=" + proveedores + '}';
     }
 
 }

@@ -70,8 +70,7 @@ public class AdministrarSecretariosController implements Initializable {
         Instant instant = Instant.from(fieldFecha.getValue().atStartOfDay(ZoneId.systemDefault()));
         Date date = Date.from(instant);
         try {
-            Secretario s = null;
-            //Secretario s = new Secretario(fieldDNI.getText(), fieldNombre.getText(), fieldApellidos.getText(), Integer.parseInt(fieldTelefono.getText()), date);
+            Secretario s = new Secretario(fieldDNI.getText(), fieldNombre.getText(), fieldApellidos.getText(), Integer.parseInt(fieldTelefono.getText()), date);
             LogicSecretario.añadir(s);
 
             mostrarSecretarios();
@@ -89,7 +88,7 @@ public class AdministrarSecretariosController implements Initializable {
             LogicSecretario.eliminar(s);
             mostrarSecretarios();
         } else {
-            mostrarError("Selecciona un cliente!");
+            mostrarError("Selecciona un secretario!");
         }
     }
 
@@ -100,13 +99,12 @@ public class AdministrarSecretariosController implements Initializable {
         if (s1 != null) {
             Instant instant = Instant.from(fieldFecha.getValue().atStartOfDay(ZoneId.systemDefault()));
             Date date = Date.from(instant);
-            Secretario s2 = null;
-            //Secretario s2 = new Secretario(fieldDNI.getText(), fieldNombre.getText(), fieldApellidos.getText(), Integer.parseInt(fieldTelefono.getText()), date);
+            Secretario s2 = new Secretario(fieldDNI.getText(), fieldNombre.getText(), fieldApellidos.getText(), Integer.parseInt(fieldTelefono.getText()), date);
 
             LogicSecretario.actualizar(s2);
             mostrarSecretarios();
         } else {
-            mostrarError("Selecciona un cliente!");
+            mostrarError("Selecciona un secretario!");
         }
     }
 
@@ -129,7 +127,7 @@ public class AdministrarSecretariosController implements Initializable {
     @FXML
     private void btnAtrasAction(ActionEvent event) throws IOException {
         GestorEscenas escenas = new GestorEscenas();
-        escenas.cambioEscena("MechanicalZ", "PantallaPrincipal.fxml", (Node) event.getSource());
+        escenas.cambioEscena("MechanicalZ", "PrincipalAdmin.fxml", (Node) event.getSource());
     }
 
     private void mostrarError(String txt) {

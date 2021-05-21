@@ -21,6 +21,7 @@ public class GestorEscenas {
         stage.setTitle(nombreEscena);
         stage.setScene(scene);
         stage.show();
+        //stage.setOnCloseRequest(e -> cerrar());
         Stage thisStage = (Stage) source.getScene().getWindow();
         thisStage.close();
     }
@@ -33,6 +34,10 @@ public class GestorEscenas {
         stage.setTitle(nombreEscena);
         stage.setScene(scene);
         stage.show();
+    }
+
+    private void cerrar() {
+
     }
 
 }

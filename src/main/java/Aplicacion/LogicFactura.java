@@ -2,6 +2,7 @@ package Aplicacion;
 
 import Aplicacion.Modelo.Cliente;
 import Aplicacion.Modelo.Factura;
+import Datos.ClienteBD;
 import Datos.DatosException;
 import Datos.FacturaBD;
 import java.util.ArrayList;
@@ -31,6 +32,25 @@ public class LogicFactura {
 
         } catch (DatosException ex) {
             throw new AplicacionException("Error añadir moto: " + ex.toString());
+        }
+
+    }
+
+    public static void eliminar(Factura f) throws AplicacionException {
+        try {
+
+            FacturaBD.eliminar(f);
+
+        } catch (DatosException ex) {
+            throw new AplicacionException("Error eliminar cliente: " + ex.toString());
+        }
+    }
+
+    public static void actualizar(Factura f1) throws AplicacionException {
+        try {
+            FacturaBD.actualizar(f1);
+        } catch (DatosException ex) {
+            throw new AplicacionException("Error actualizar cliente: " + ex.toString());
         }
 
     }

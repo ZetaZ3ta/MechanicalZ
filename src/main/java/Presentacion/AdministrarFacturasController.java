@@ -37,17 +37,20 @@ public class AdministrarFacturasController implements Initializable {
     ObservableList<Factura> listaFacturas;
     ObservableList<Cliente> listaClientes;
     ObservableList<Secretario> listaSecretarios;
+    private TextField fieldID;
 
     @FXML
-    private TextField fieldID, fieldPrecio, fieldDescripcion;
+    private TextField fieldPrecio, fieldDescripcion;
     @FXML
     private TableView<Factura> tvFacturas;
     @FXML
-    private TableColumn colID, colDescripcion, colPrecio, colIVA, colCliente, colSecretario;
+    private TableColumn colID, colDescripcion, colPrecio, colIVA, colSecretario, colTotal;
     @FXML
     private ChoiceBox choiceCliente;
     @FXML
     private ChoiceBox choiceSecretario;
+    @FXML
+    private TableColumn<Cliente, String> colCliente;
 
     /**
      * Initializes the controller class.
@@ -73,7 +76,8 @@ public class AdministrarFacturasController implements Initializable {
             colDescripcion.setCellValueFactory(new PropertyValueFactory<>("Descripcion"));
             colPrecio.setCellValueFactory(new PropertyValueFactory<>("Precio"));
             colIVA.setCellValueFactory(new PropertyValueFactory<>("IVA"));
-            colCliente.setCellValueFactory(new PropertyValueFactory<>("Cliente_DNI"));
+            colTotal.setCellValueFactory(new PropertyValueFactory<>("Total"));
+            colCliente.setCellValueFactory(new PropertyValueFactory<Cliente, String>("Cliente_DNI"));
             colSecretario.setCellValueFactory(new PropertyValueFactory<>("Secretario_DNI"));
 
         } catch (Exception ex) {
@@ -85,26 +89,54 @@ public class AdministrarFacturasController implements Initializable {
 
     @FXML
     private void btnAñadirAction(ActionEvent event) throws AplicacionException, DatosException {
-//        Cliente c = LogicCliente.getCliente((String) choiceCliente.getSelectionModel().getSelectedItem());
-//        Secretario s = LogicSecretario.getSecretario((String) choiceSecretario.getSelectionModel().getSelectedItem());
-//        Factura f = null;
-//        //Factura f = new Factura(Integer.parseInt(fieldID.getText()), fieldDescripcion.getText(), Integer.parseInt(fieldPrecio.getText()), 21, c, s);
-//        LogicFactura.añadir(f);
-//
-//        mostrarFacturas();
-//        limpiarCampos();
-        mostrarError("No implementado aun!");
+        Cliente c = LogicCliente.getCliente((String) choiceCliente.getSelectionModel().getSelectedItem());
+        Secretario s = LogicSecretario.getSecretario((String) choiceSecretario.getSelectionModel().getSelectedItem());
+
+        double total = Integer.parseInt(fieldPrecio.getText()) + Integer.parseInt(fieldPrecio.getText()) * 0.21;
+
+        System.out.println(total);
+
+        Factura f = new Factura(0, fieldDescripcion.getText(), Integer.parseInt(fieldPrecio.getText()), 21, total, c, s);
+        LogicFactura.añadir(f);
+
+        mostrarFacturas();
+        limpiarCampos();
     }
 
     @FXML
-    private void btnEliminarAction(ActionEvent event) {
-        mostrarError("No implementado aun!");
+    private void btnEliminarAction(ActionEvent event) throws AplicacionException {
+        Factura f = tvFacturas.getSelectionModel().getSelectedItem();
+
+        if (f != null) {
+            LogicFactura.eliminar(f);
+            mostrarFacturas();
+        } else {
+            mostrarError("Selecciona una factura!");
+        }
 
     }
 
     @FXML
-    private void btnActualizarAction(ActionEvent event) {
-        mostrarError("No implementado aun!");
+    private void btnActualizarAction(ActionEvent event) throws AplicacionException {
+
+        Factura f1 = tvFacturas.getSelectionModel().getSelectedItem();
+
+        if (f1 != null) {
+
+            Cliente c = LogicCliente.getCliente((String) choiceCliente.getSelectionModel().getSelectedItem());
+            Secretario s = LogicSecretario.getSecretario((String) choiceSecretario.getSelectionModel().getSelectedItem());
+
+            double total = Integer.parseInt(fieldPrecio.getText()) + Integer.parseInt(fieldPrecio.getText()) * 0.21;
+
+            System.out.println(total);
+
+            Factura f2 = new Factura(0, fieldDescripcion.getText(), Integer.parseInt(fieldPrecio.getText()), 21, total, c, s);
+
+            LogicFactura.actualizar(f2);
+            mostrarFacturas();
+        } else {
+            mostrarError("Selecciona una factura!");
+        }
 
     }
 
@@ -156,9 +188,9 @@ public class AdministrarFacturasController implements Initializable {
         fieldDescripcion.setText(u.getDescripcion());
         fieldPrecio.setText(String.valueOf(u.getPrecio()));
         // choiceCliente.setValue(u.getCliente().getNombre() + u.getCliente().getApellidos());
-        //choiceCliente.setValue(u.getCliente_DNI());
+        choiceCliente.setValue(u.getCliente().getDNI());
         //choiceSecretario.setValue(u.getSecretario().getNombre() + u.getCliente().getApellidos());
-        //choiceSecretario.setValue(u.getSecretario_DNI());
+        choiceSecretario.setValue(u.getSecretario());
     }
 
 }
