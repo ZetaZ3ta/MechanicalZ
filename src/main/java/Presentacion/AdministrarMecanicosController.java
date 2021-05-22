@@ -81,11 +81,16 @@ public class AdministrarMecanicosController implements Initializable {
 
     @FXML
     private void btnAñadirAction(ActionEvent event) {
+        boolean ocupado;
         Instant instant = Instant.from(fieldFecha.getValue().atStartOfDay(ZoneId.systemDefault()));
         Date date = Date.from(instant);
         try {
-
-            Mecanico m = new Mecanico(fieldDNI.getText(), fieldNombre.getText(), fieldApellidos.getText(), Integer.parseInt(fieldTelefono.getText()), date, false);
+            if (choiceOcupado.getSelectionModel().getSelectedItem().equals("Si")) {
+                ocupado = true;
+            } else {
+                ocupado = false;
+            }
+            Mecanico m = new Mecanico(fieldDNI.getText(), fieldNombre.getText(), fieldApellidos.getText(), Integer.parseInt(fieldTelefono.getText()), date, ocupado);
             LogicMecanico.añadir(m);
 
             mostrarMecanicos();
@@ -110,13 +115,21 @@ public class AdministrarMecanicosController implements Initializable {
 
     @FXML
     private void btnActualizarAction(ActionEvent event) throws AplicacionException {
+        boolean ocupado;
+
         Mecanico m1 = tvMecanicos.getSelectionModel().getSelectedItem();
 
         if (m1 != null) {
             Instant instant = Instant.from(fieldFecha.getValue().atStartOfDay(ZoneId.systemDefault()));
             Date date = Date.from(instant);
 
-            Mecanico m2 = new Mecanico(fieldDNI.getText(), fieldNombre.getText(), fieldApellidos.getText(), Integer.parseInt(fieldTelefono.getText()), date, false);
+            if (choiceOcupado.getSelectionModel().getSelectedItem().equals("Si")) {
+                ocupado = true;
+            } else {
+                ocupado = false;
+            }
+
+            Mecanico m2 = new Mecanico(fieldDNI.getText(), fieldNombre.getText(), fieldApellidos.getText(), Integer.parseInt(fieldTelefono.getText()), date, ocupado);
 
             LogicMecanico.actualizar(m2);
             mostrarMecanicos();

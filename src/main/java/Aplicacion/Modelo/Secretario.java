@@ -5,6 +5,7 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -14,8 +15,17 @@ import javax.persistence.Table;
  */
 @Entity
 @Table
-public class Secretario extends Persona {
+public class Secretario {
 
+    @Id
+    @Column
+    private String DNI;
+
+    @Column
+    private String nombre;
+
+    @Column
+    private String apellidos;
     @Column
     private int Telefono;
 
@@ -26,20 +36,47 @@ public class Secretario extends Persona {
     private List<Proveedor> proveedores;
 
     public Secretario(String DNI, String nombre, String apellidos, int Telefono, Date Fecha_Nacimiento, List<Proveedor> proveedores) {
-        super(DNI, nombre, apellidos);
+        this.DNI = DNI;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
         this.Telefono = Telefono;
         this.Fecha_Nacimiento = Fecha_Nacimiento;
         this.proveedores = proveedores;
     }
 
-        public Secretario(String DNI, String nombre, String apellidos, int Telefono, Date Fecha_Nacimiento) {
-        super(DNI, nombre, apellidos);
+    public Secretario(String DNI, String nombre, String apellidos, int Telefono, Date Fecha_Nacimiento) {
+        this.DNI = DNI;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
         this.Telefono = Telefono;
         this.Fecha_Nacimiento = Fecha_Nacimiento;
     }
-    
-    public Secretario() {
 
+    public Secretario() {
+    }
+
+    public String getDNI() {
+        return DNI;
+    }
+
+    public void setDNI(String DNI) {
+        this.DNI = DNI;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
     }
 
     public int getTelefono() {
@@ -68,7 +105,7 @@ public class Secretario extends Persona {
 
     @Override
     public String toString() {
-        return "Secretario{" + "Telefono=" + Telefono + ", Fecha_Nacimiento=" + Fecha_Nacimiento + ", proveedores=" + proveedores + '}';
+        return "Secretario{" + "DNI=" + DNI + ", nombre=" + nombre + ", apellidos=" + apellidos + ", Telefono=" + Telefono + ", Fecha_Nacimiento=" + Fecha_Nacimiento + ", proveedores=" + proveedores + '}';
     }
 
 }

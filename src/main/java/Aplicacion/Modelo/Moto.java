@@ -3,6 +3,7 @@ package Aplicacion.Modelo;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -29,16 +30,20 @@ public class Moto {
     @Column
     private int KM;
 
-    public Moto(String Bastidor, String Marca, String Modelo, String Matricula, int KM) {
+    @ManyToOne
+    private Cliente Dueño;
+
+    public Moto(String Bastidor, String Marca, String Modelo, String Matricula, int KM, Cliente Dueño) {
         this.Bastidor = Bastidor;
         this.Marca = Marca;
         this.Modelo = Modelo;
         this.Matricula = Matricula;
         this.KM = KM;
+        this.Dueño = Dueño;
     }
-    
+
     public Moto() {
-        
+
     }
 
     public String getBastidor() {
@@ -81,9 +86,17 @@ public class Moto {
         this.KM = KM;
     }
 
+    public Cliente getDueño() {
+        return Dueño;
+    }
+
+    public void setDueño(Cliente Dueño) {
+        this.Dueño = Dueño;
+    }
+
     @Override
     public String toString() {
-        return "Moto{" + "Bastidor=" + Bastidor + ", Marca=" + Marca + ", Modelo=" + Modelo + ", Matricula=" + Matricula + ", KM=" + KM + '}';
+        return "Moto{" + "Bastidor=" + Bastidor + ", Marca=" + Marca + ", Modelo=" + Modelo + ", Matricula=" + Matricula + ", KM=" + KM + ", Due\u00f1o=" + Dueño + '}';
     }
 
 }

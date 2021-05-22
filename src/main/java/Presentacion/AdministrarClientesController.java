@@ -41,7 +41,7 @@ public class AdministrarClientesController implements Initializable {
     ObservableList<Cliente> listaClientes;
 
     @FXML
-    private TextField fieldDNI, fieldNombre, fieldApellidos, fieldDireccion, fieldTelefono, fieldFiltrar;
+    private TextField fieldDNI, fieldNombre, fieldApellidos, fieldDireccion, fieldTelefono;
     @FXML
     private DatePicker fieldFechaNacimiento;
     @FXML
@@ -72,25 +72,25 @@ public class AdministrarClientesController implements Initializable {
 
     @FXML
     private void btnAñadirAction(ActionEvent event) throws AplicacionException {
-        if (comprobarCampos()) {
-            String msg = Reglas.DNI(fieldDNI.getText());
-            if (msg.equals("")) {
-                Instant instant = Instant.from(fieldFechaNacimiento.getValue().atStartOfDay(ZoneId.systemDefault()));
-                Date date = Date.from(instant);
-                List<Moto> motos = LogicMoto.getMotos();
-                try {
-                    Cliente c = new Cliente(fieldDNI.getText(), fieldNombre.getText(), fieldApellidos.getText(), fieldDireccion.getText(), Integer.parseInt(fieldTelefono.getText()), date, motos);
-                    LogicCliente.añadir(c);
+        //if (comprobarCampos()) {
+        //String msg = Reglas.DNI(fieldDNI.getText());
+        //      if (msg.equals("")) {
+        Instant instant = Instant.from(fieldFechaNacimiento.getValue().atStartOfDay(ZoneId.systemDefault()));
+        Date date = Date.from(instant);
+        try {
+            System.out.println(fieldDNI.getText());
+            Cliente c = new Cliente(fieldDNI.getText(), fieldNombre.getText(), fieldApellidos.getText(), fieldDireccion.getText(), Integer.parseInt(fieldTelefono.getText()), date);
+            LogicCliente.añadir(c);
 
-                    mostrarClientes();
-                    limpiarCampos();
-                } catch (AplicacionException ex) {
-                    Logger.getLogger(AdministrarClientesController.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } else {
-                mostrarError(msg);
-            }
+            mostrarClientes();
+            limpiarCampos();
+        } catch (AplicacionException ex) {
+            Logger.getLogger(AdministrarClientesController.class.getName()).log(Level.SEVERE, null, ex);
         }
+//        } else {
+//            mostrarError(msg);
+//        }
+        //    }
 
     }
 
@@ -99,6 +99,7 @@ public class AdministrarClientesController implements Initializable {
         Cliente c = tvClientes.getSelectionModel().getSelectedItem();
 
         if (c != null) {
+            System.out.println(c.getDNI());
             LogicCliente.eliminar(c);
             mostrarClientes();
         } else {
@@ -115,9 +116,8 @@ public class AdministrarClientesController implements Initializable {
         if (c1 != null) {
             Instant instant = Instant.from(fieldFechaNacimiento.getValue().atStartOfDay(ZoneId.systemDefault()));
             Date date = Date.from(instant);
-            List<Moto> motos = LogicMoto.getMotos();
 
-            Cliente c2 = new Cliente(fieldDNI.getText(), fieldNombre.getText(), fieldApellidos.getText(), fieldDireccion.getText(), Integer.parseInt(fieldTelefono.getText()), date, motos);
+            Cliente c2 = new Cliente(fieldDNI.getText(), fieldNombre.getText(), fieldApellidos.getText(), fieldDireccion.getText(), Integer.parseInt(fieldTelefono.getText()), date);
 
             LogicCliente.actualizar(c2);
             mostrarClientes();

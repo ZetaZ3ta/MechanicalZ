@@ -52,12 +52,6 @@
                   <Insets left="10.0" />
                </padding>
             </Label>
-            <Separator layoutX="10.0" layoutY="215.0" prefHeight="75.0" />
-            <Label disable="true" layoutX="10.0" layoutY="235.0" prefHeight="25.0" text="Filtrar">
-               <padding>
-                  <Insets left="10.0" />
-               </padding>
-            </Label>
          </children>
       </VBox>
    </left>
@@ -99,8 +93,6 @@
             <TextField fx:id="fieldTelefono" layoutX="10.0" layoutY="145.0" promptText="Telefono" />
             <Separator layoutX="10.0" layoutY="170.0" prefHeight="20.0" prefWidth="400.0" />
             <DatePicker fx:id="fieldFechaNacimiento" promptText="Fecha de nacimiento" />
-            <Separator layoutX="20.0" layoutY="215.0" prefHeight="75.0" prefWidth="439.0" />
-            <TextField fx:id="fieldFiltrar" disable="true" layoutX="20.0" layoutY="190.0" promptText="Campo a filtrar" />
          </children>
          <BorderPane.margin>
             <Insets />

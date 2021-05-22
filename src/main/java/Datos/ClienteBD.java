@@ -42,11 +42,13 @@ public class ClienteBD {
 
     }
 
-    public static Cliente getCliente(String nombre) {
+    public static Cliente getCliente(/*String nombre*/String DNI) {
         Session ses = SingleSession.getSesio();
-
-        Query query = ses.createQuery("FROM Cliente WHERE CONCAT(nombre,' ',apellidos) = '" + nombre + "'");
+        Query query = ses.createQuery("FROM Cliente WHERE DNI = '" + DNI + "'");
+        //Query query = ses.createQuery("FROM Cliente WHERE CONCAT(nombre,' ',apellidos) = '" + nombre + "'");
         Cliente c = (Cliente) query.uniqueResult();
+        
+        System.out.println(c.getDNI());
         return c;
     }
 }

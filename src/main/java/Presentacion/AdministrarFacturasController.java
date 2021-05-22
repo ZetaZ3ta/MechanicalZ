@@ -63,7 +63,8 @@ public class AdministrarFacturasController implements Initializable {
             listaSecretarios = FXCollections.<Secretario>observableArrayList(LogicSecretario.getSecretarios());
 
             for (Cliente clientes : listaClientes) {
-                choiceCliente.getItems().add(clientes.getNombre() + " " + clientes.getApellidos());
+                choiceCliente.getItems().add(clientes.getDNI());
+                //choiceCliente.getItems().add(clientes.getNombre() + " " + clientes.getApellidos());
             }
 
             for (Secretario secretarios : listaSecretarios) {
@@ -77,8 +78,8 @@ public class AdministrarFacturasController implements Initializable {
             colPrecio.setCellValueFactory(new PropertyValueFactory<>("Precio"));
             colIVA.setCellValueFactory(new PropertyValueFactory<>("IVA"));
             colTotal.setCellValueFactory(new PropertyValueFactory<>("Total"));
-            colCliente.setCellValueFactory(new PropertyValueFactory<Cliente, String>("Cliente_DNI"));
-            colSecretario.setCellValueFactory(new PropertyValueFactory<>("Secretario_DNI"));
+            colCliente.setCellValueFactory(new PropertyValueFactory<Cliente, String>("Cliente"));
+            colSecretario.setCellValueFactory(new PropertyValueFactory<>("Secretario"));
 
         } catch (Exception ex) {
             mostrarError("Error al inicializar: " + ex.toString());

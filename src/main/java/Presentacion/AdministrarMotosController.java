@@ -2,7 +2,9 @@ package Presentacion;
 
 import Aplicacion.AplicacionException;
 import Aplicacion.GestorEscenas;
+import Aplicacion.LogicCliente;
 import Aplicacion.LogicMoto;
+import Aplicacion.Modelo.Cliente;
 import Aplicacion.Modelo.Moto;
 import java.io.IOException;
 import java.net.URL;
@@ -16,6 +18,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -31,13 +34,16 @@ import javafx.scene.layout.Region;
 public class AdministrarMotosController implements Initializable {
 
     ObservableList<Moto> listaMotos;
+    ObservableList<Cliente> listaClientes;
 
     @FXML
     private TableView<Moto> tvMotos;
     @FXML
-    private TextField fieldBastidor, fieldMarca, fieldModelo, fieldMatricula, fieldKM, fieldDueño, fieldFiltrar;
-    @FXML
     private TableColumn colBastidor, colMarca, colModelo, colMatricula, colDueño, colKM;
+    @FXML
+    private ChoiceBox choiceDueño;
+    @FXML
+    private TextField fieldBastidor, fieldMarca, fieldModelo, fieldMatricula, fieldKM;
 
     /**
      * Initializes the controller class.
@@ -45,6 +51,15 @@ public class AdministrarMotosController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
+
+            listaClientes = FXCollections.<Cliente>observableArrayList(LogicCliente.getClientes());
+
+            for (Cliente listaCliente : listaClientes) {
+
+                choiceDueño.getItems().add(listaCliente.getDNI());
+                //choiceDueño.getItems().add(listaCliente.getNombre() + " " + listaCliente.getApellidos());
+            }
+
             mostrarMotos();
 
             colBastidor.setCellValueFactory(new PropertyValueFactory<>("Bastidor"));
@@ -63,8 +78,8 @@ public class AdministrarMotosController implements Initializable {
     @FXML
     private void btnAñadirAction(ActionEvent event) {
         try {
-
-            Moto m = new Moto(fieldBastidor.getText(), fieldMarca.getText(), fieldModelo.getText(), fieldMatricula.getText(), Integer.parseInt(fieldKM.getText()));
+            Cliente c = LogicCliente.getCliente((String) choiceDueño.getSelectionModel().getSelectedItem());
+            Moto m = new Moto(fieldBastidor.getText(), fieldMarca.getText(), fieldModelo.getText(), fieldMatricula.getText(), Integer.parseInt(fieldKM.getText()), c);
             LogicMoto.añadir(m);
 
             mostrarMotos();
@@ -93,8 +108,8 @@ public class AdministrarMotosController implements Initializable {
         Moto m1 = tvMotos.getSelectionModel().getSelectedItem();
 
         if (m1 != null) {
-
-            Moto m2 = new Moto(fieldBastidor.getText(), fieldMarca.getText(), fieldModelo.getText(), fieldMatricula.getText(), Integer.parseInt(fieldKM.getText()));
+            Cliente c = LogicCliente.getCliente((String) choiceDueño.getSelectionModel().getSelectedItem());
+            Moto m2 = new Moto(fieldBastidor.getText(), fieldMarca.getText(), fieldModelo.getText(), fieldMatricula.getText(), Integer.parseInt(fieldKM.getText()), c);
 
             LogicMoto.actualizar(m2);
             mostrarMotos();
@@ -139,15 +154,6 @@ public class AdministrarMotosController implements Initializable {
         alert.showAndWait();
     }
 
-    private void mostrarInfo(String txt) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Info:");
-        alert.setContentText(txt);
-        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
-
-        alert.showAndWait();
-    }
-
     private void limpiarCampos() {
 
         fieldBastidor.setText(null);
@@ -155,8 +161,7 @@ public class AdministrarMotosController implements Initializable {
         fieldModelo.setText(null);
         fieldMatricula.setText(null);
         fieldKM.setText(null);
-        fieldDueño.setText(null);
-        fieldFiltrar.setText(null);
+        choiceDueño.setValue(null);
     }
 
     private void setClienteToView(Moto m) {

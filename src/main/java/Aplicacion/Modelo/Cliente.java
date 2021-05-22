@@ -1,11 +1,11 @@
 package Aplicacion.Modelo;
 
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.OneToMany;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
 import javax.persistence.Table;
 
 /**
@@ -14,7 +14,18 @@ import javax.persistence.Table;
  */
 @Entity
 @Table
-public class Cliente extends Persona {
+@Inheritance(strategy = InheritanceType.JOINED)
+public class Cliente {
+
+    @Id
+    @Column
+    private String DNI;
+
+    @Column
+    private String nombre;
+
+    @Column
+    private String apellidos;
 
     @Column
     private String Direccion;
@@ -25,20 +36,41 @@ public class Cliente extends Persona {
     @Column
     private Date Fecha_Nacimiento;
 
-    @OneToMany
-    @JoinColumn(name = "Dueño")
-    private List<Moto> Motos;
+    public Cliente() {
 
-    public Cliente(String DNI, String nombre, String apellidos, String Direccion, int Telefono, Date Fecha_Nacimiento, List<Moto> Motos) {
-        super(DNI, nombre, apellidos);
+    }
+
+    public Cliente(String DNI, String nombre, String apellidos, String Direccion, int Telefono, Date Fecha_Nacimiento) {
+        this.DNI = DNI;
+        this.nombre = nombre;
+        this.apellidos = apellidos;
         this.Direccion = Direccion;
         this.Telefono = Telefono;
         this.Fecha_Nacimiento = Fecha_Nacimiento;
-        this.Motos = Motos;
     }
-    
-    public Cliente() {
-        
+
+    public String getDNI() {
+        return DNI;
+    }
+
+    public void setDNI(String DNI) {
+        this.DNI = DNI;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
     }
 
     public String getDireccion() {
@@ -65,17 +97,9 @@ public class Cliente extends Persona {
         this.Fecha_Nacimiento = Fecha_Nacimiento;
     }
 
-    public List<Moto> getMotos() {
-        return Motos;
-    }
-
-    public void setMotos(List<Moto> Motos) {
-        this.Motos = Motos;
-    }
-
     @Override
     public String toString() {
-        return "Cliente{" + "Direccion=" + Direccion + ", Telefono=" + Telefono + ", Fecha_Nacimiento=" + Fecha_Nacimiento + ", Motos=" + Motos + '}';
+        return "Cliente{" + "DNI=" + DNI + ", nombre=" + nombre + ", apellidos=" + apellidos + ", Direccion=" + Direccion + ", Telefono=" + Telefono + ", Fecha_Nacimiento=" + Fecha_Nacimiento + '}';
     }
 
 }
