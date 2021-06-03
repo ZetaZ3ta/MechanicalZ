@@ -171,6 +171,7 @@ public class AdministrarMotosController implements Initializable {
         fieldModelo.setText(m.getModelo());
         fieldMatricula.setText(m.getMatricula());
         fieldKM.setText(String.valueOf(m.getKM()));
+        choiceDueño.setValue(m.getDueño().getDNI());
     }
 
 }

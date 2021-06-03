@@ -1,12 +1,9 @@
 package Aplicacion.Modelo;
 
 import java.util.Date;
-import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /**
@@ -26,23 +23,12 @@ public class Secretario {
 
     @Column
     private String apellidos;
+    
     @Column
     private int Telefono;
 
     @Column
     private Date Fecha_Nacimiento;
-
-    @ManyToMany(cascade = {CascadeType.ALL}, mappedBy = "secretarios")
-    private List<Proveedor> proveedores;
-
-    public Secretario(String DNI, String nombre, String apellidos, int Telefono, Date Fecha_Nacimiento, List<Proveedor> proveedores) {
-        this.DNI = DNI;
-        this.nombre = nombre;
-        this.apellidos = apellidos;
-        this.Telefono = Telefono;
-        this.Fecha_Nacimiento = Fecha_Nacimiento;
-        this.proveedores = proveedores;
-    }
 
     public Secretario(String DNI, String nombre, String apellidos, int Telefono, Date Fecha_Nacimiento) {
         this.DNI = DNI;
@@ -95,17 +81,9 @@ public class Secretario {
         this.Fecha_Nacimiento = Fecha_Nacimiento;
     }
 
-    public List<Proveedor> getProveedores() {
-        return proveedores;
-    }
-
-    public void setProveedores(List<Proveedor> proveedores) {
-        this.proveedores = proveedores;
-    }
-
     @Override
     public String toString() {
-        return "Secretario{" + "DNI=" + DNI + ", nombre=" + nombre + ", apellidos=" + apellidos + ", Telefono=" + Telefono + ", Fecha_Nacimiento=" + Fecha_Nacimiento + ", proveedores=" + proveedores + '}';
+        return "Secretario{" + "DNI=" + DNI + ", nombre=" + nombre + ", apellidos=" + apellidos + ", Telefono=" + Telefono + ", Fecha_Nacimiento=" + Fecha_Nacimiento + '}';
     }
 
 }

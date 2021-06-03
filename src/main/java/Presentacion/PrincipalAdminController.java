@@ -1,18 +1,13 @@
 package Presentacion;
 
+import Aplicacion.GestorEscenas;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -33,7 +28,7 @@ public class PrincipalAdminController implements Initializable {
     }
 
     @FXML
-    private void btnAdminUsuariosAction(ActionEvent event) {
+    private void btnAdminUsuariosAction(ActionEvent event) throws IOException {
         Escena = "AdministrarUsuarios.fxml";
         tituloEscena = "Administrar Usuarios";
 
@@ -41,7 +36,7 @@ public class PrincipalAdminController implements Initializable {
     }
 
     @FXML
-    private void btnAdminMecanicosAction(ActionEvent event) {
+    private void btnAdminMecanicosAction(ActionEvent event) throws IOException {
         Escena = "AdministrarMecanicos.fxml";
         tituloEscena = "Administrar Mecanicos";
 
@@ -51,7 +46,7 @@ public class PrincipalAdminController implements Initializable {
 
     @FXML
 
-    private void btnAdminServiciosAction(ActionEvent event) {
+    private void btnAdminServiciosAction(ActionEvent event) throws IOException {
         Escena = "AdminsitrarServicios.fxml";
         tituloEscena = "Administrar Servicios";
 
@@ -60,7 +55,7 @@ public class PrincipalAdminController implements Initializable {
     }
 
     @FXML
-    private void btnCerrarAction(ActionEvent event) {
+    private void btnCerrarAction(ActionEvent event) throws IOException {
         Escena = "Login.fxml";
         tituloEscena = "Login";
 
@@ -69,30 +64,24 @@ public class PrincipalAdminController implements Initializable {
     }
 
     @FXML
-    private void btnAdminSecretariosAction(ActionEvent event) {
+    private void btnAdminSecretariosAction(ActionEvent event) throws IOException {
         Escena = "AdministrarSecretarios.fxml";
         tituloEscena = "Administrar Secretarios";
 
         CambioEscena(event);
     }
 
-    private void CambioEscena(ActionEvent event) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/" + Escena));
-            //FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/AdministrarSecretarios.fxml"));
-            Parent root = loader.load();
-            Scene scene = new Scene(root);
-            Stage stage = new Stage();
-            scene.getStylesheets().add("/styles/Styles.css");
-            stage.setTitle(tituloEscena);
-            stage.setScene(scene);
-            stage.show();
-            Node source = (Node) event.getSource();
-            Stage thisStage = (Stage) source.getScene().getWindow();
-            thisStage.close();
-        } catch (IOException ex) {
-            Logger.getLogger(LoginController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    @FXML
+    private void btnCambiarAction(ActionEvent event) throws IOException {
+        Escena = "PantallaPrincipal.fxml";
+        tituloEscena = "MechanicalZ";
+
+        CambioEscena(event);
+    }
+
+    private void CambioEscena(ActionEvent event) throws IOException {
+        GestorEscenas escenas = new GestorEscenas();
+        escenas.cambioEscena(tituloEscena, Escena, (Node) event.getSource());
     }
 
 }

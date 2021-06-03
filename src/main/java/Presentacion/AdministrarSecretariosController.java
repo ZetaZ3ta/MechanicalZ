@@ -139,15 +139,6 @@ public class AdministrarSecretariosController implements Initializable {
         alert.showAndWait();
     }
 
-    private void mostrarInfo(String txt) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Info:");
-        alert.setContentText(txt);
-        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
-
-        alert.showAndWait();
-    }
-
     private void mostrarSecretarios() throws AplicacionException {
         listaSecretarios = FXCollections.<Secretario>observableArrayList(LogicSecretario.getSecretarios());
 

@@ -1,6 +1,8 @@
 package Presentacion;
 
 import Aplicacion.GestorEscenas;
+import Aplicacion.LogicUsuario;
+import Aplicacion.Modelo.Usuario;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -26,7 +28,11 @@ public class PantallaPrincipalController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        Usuario u = null;
+        LogicUsuario.getUsuario(Escena);
+        if (true) {
+            
+        }
     }
 
     @FXML
@@ -58,8 +64,25 @@ public class PantallaPrincipalController implements Initializable {
     private void btnCerrarAction(ActionEvent event) throws IOException {
         Escena = "Login.fxml";
         tituloEscena = "Login";
+
         CambioEscena(event);
 
+    }
+
+    @FXML
+    private void btnAdminProveedoresAction(ActionEvent event) throws IOException {
+        Escena = "AdministrarProveedores.fxml";
+        tituloEscena = "Administrar Proveedores";
+
+        CambioEscena(event);
+    }
+
+    @FXML
+    private void btnCambiarAction(ActionEvent event) throws IOException {
+        Escena = "PrincipalAdmin.fxml";
+        tituloEscena = "MechanicalZ";
+        
+        CambioEscena(event);
     }
 
     private void CambioEscena(ActionEvent event) throws IOException {

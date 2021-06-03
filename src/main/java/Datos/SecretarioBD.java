@@ -42,10 +42,11 @@ public class SecretarioBD {
 
     }
 
-    public static Secretario getSecretario(String nombre) {
+    public static Secretario getSecretario(String /*nombre*/ DNI) {
         Session ses = SingleSession.getSesio();
 
-        Query query = ses.createQuery("FROM Secretario WHERE CONCAT(nombre,' ',apellidos) = '" + nombre + "'");
+        //Query query = ses.createQuery("FROM Secretario WHERE CONCAT(nombre,' ',apellidos) = '" + nombre + "'");
+        Query query = ses.createQuery("FROM Secretario WHERE DNI = '" + DNI + "'");
         Secretario s = (Secretario) query.uniqueResult();
         return s;
     }

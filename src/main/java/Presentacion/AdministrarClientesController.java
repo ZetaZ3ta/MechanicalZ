@@ -3,16 +3,12 @@ package Presentacion;
 import Aplicacion.AplicacionException;
 import Aplicacion.GestorEscenas;
 import Aplicacion.LogicCliente;
-import Aplicacion.LogicMoto;
 import Aplicacion.Modelo.Cliente;
-import Aplicacion.Modelo.Moto;
-import Aplicacion.Reglas;
 import java.io.IOException;
 import java.net.URL;
 import java.time.Instant;
 import java.time.ZoneId;
 import java.util.Date;
-import java.util.List;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -99,7 +95,6 @@ public class AdministrarClientesController implements Initializable {
         Cliente c = tvClientes.getSelectionModel().getSelectedItem();
 
         if (c != null) {
-            System.out.println(c.getDNI());
             LogicCliente.eliminar(c);
             mostrarClientes();
         } else {
