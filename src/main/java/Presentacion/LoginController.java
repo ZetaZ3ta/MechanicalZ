@@ -18,6 +18,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Region;
+import javafx.scene.text.Font;
 
 /**
  *
@@ -25,6 +26,8 @@ import javafx.scene.layout.Region;
  */
 public class LoginController implements Initializable {
 
+    Font font = Font.loadFont("..\\fonts\\Akira.otf",45);
+    
     @FXML
     private Label errorUsuario, errorContraseña;
     @FXML
@@ -34,7 +37,6 @@ public class LoginController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
     }
 
     @FXML

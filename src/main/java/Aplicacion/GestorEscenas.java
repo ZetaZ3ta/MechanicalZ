@@ -40,9 +40,10 @@ public class GestorEscenas {
     }
 
     private void cerrar() {
-        Platform.exit();
         Session ses = SingleSession.getSesio();
         ses.close();
+        Platform.exit();
+
     }
 
 }
