@@ -4,6 +4,7 @@ import Aplicacion.AplicacionException;
 import Aplicacion.GestorEscenas;
 import Aplicacion.LogicMecanico;
 import Aplicacion.Modelo.Mecanico;
+import Aplicacion.Reglas;
 import java.io.IOException;
 import java.net.URL;
 import java.time.Instant;
@@ -80,23 +81,38 @@ public class AdministrarMecanicosController implements Initializable {
     }
 
     @FXML
-    private void btnAñadirAction(ActionEvent event) {
-        boolean ocupado;
-        Instant instant = Instant.from(fieldFecha.getValue().atStartOfDay(ZoneId.systemDefault()));
-        Date date = Date.from(instant);
-        try {
-            if (choiceOcupado.getSelectionModel().getSelectedItem().equals("Si")) {
-                ocupado = true;
-            } else {
-                ocupado = false;
-            }
-            Mecanico m = new Mecanico(fieldDNI.getText(), fieldNombre.getText(), fieldApellidos.getText(), Integer.parseInt(fieldTelefono.getText()), date, ocupado);
-            LogicMecanico.añadir(m);
+    private void btnAñadirAction(ActionEvent event) throws AplicacionException {
 
-            mostrarMecanicos();
-            limpiarCampos();
-        } catch (AplicacionException ex) {
-            Logger.getLogger(AdministrarClientesController.class.getName()).log(Level.SEVERE, null, ex);
+        if (comprobarCampos()) {
+            String msgDNI = Reglas.DNI(fieldDNI.getText());
+            String msgTLF = Reglas.telefono(fieldTelefono.getText());
+            if (msgDNI.equals("") && msgTLF.equals("")) {
+                boolean ocupado;
+                Instant instant = Instant.from(fieldFecha.getValue().atStartOfDay(ZoneId.systemDefault()));
+                Date date = Date.from(instant);
+                try {
+                    if (choiceOcupado.getSelectionModel().getSelectedItem().equals("Si")) {
+                        ocupado = true;
+                    } else {
+                        ocupado = false;
+                    }
+                    Mecanico m = new Mecanico(fieldDNI.getText(), fieldNombre.getText(), fieldApellidos.getText(), Integer.parseInt(fieldTelefono.getText()), date, ocupado);
+                    LogicMecanico.añadir(m);
+
+                    mostrarMecanicos();
+                    limpiarCampos();
+                } catch (AplicacionException ex) {
+                    Logger.getLogger(AdministrarClientesController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            } else {
+                if (!msgDNI.equals("")) {
+                    mostrarError(msgDNI);
+                }
+                if (!msgTLF.equals("")) {
+                    mostrarError(msgTLF);
+                }
+            }
         }
 
     }
@@ -120,31 +136,45 @@ public class AdministrarMecanicosController implements Initializable {
         Mecanico m1 = tvMecanicos.getSelectionModel().getSelectedItem();
 
         if (m1 != null) {
-            Instant instant = Instant.from(fieldFecha.getValue().atStartOfDay(ZoneId.systemDefault()));
-            Date date = Date.from(instant);
+            if (comprobarCampos()) {
+                String msgTLF = Reglas.telefono(fieldTelefono.getText());
+                if (msgTLF.equals("")) {
 
-            if (choiceOcupado.getSelectionModel().getSelectedItem().equals("Si")) {
-                ocupado = true;
-            } else {
-                ocupado = false;
+                    Instant instant = Instant.from(fieldFecha.getValue().atStartOfDay(ZoneId.systemDefault()));
+                    Date date = Date.from(instant);
+
+                    if (choiceOcupado.getSelectionModel().getSelectedItem().equals("Si")) {
+                        ocupado = true;
+                    } else {
+                        ocupado = false;
+                    }
+
+                    Mecanico m2 = new Mecanico(fieldDNI.getText(), fieldNombre.getText(), fieldApellidos.getText(), Integer.parseInt(fieldTelefono.getText()), date, ocupado);
+
+                    LogicMecanico.actualizar(m2);
+                    mostrarMecanicos();
+
+                } else {
+                    if (!msgTLF.equals("")) {
+                        mostrarError(msgTLF);
+                    }
+                }
+
             }
-
-            Mecanico m2 = new Mecanico(fieldDNI.getText(), fieldNombre.getText(), fieldApellidos.getText(), Integer.parseInt(fieldTelefono.getText()), date, ocupado);
-
-            LogicMecanico.actualizar(m2);
-            mostrarMecanicos();
         } else {
             mostrarError("Selecciona un mecanico!");
         }
     }
 
     @FXML
-    private void btnLimpiarAction(ActionEvent event) {
+    private void btnLimpiarAction(ActionEvent event
+    ) {
         limpiarCampos();
     }
 
     @FXML
-    private void onMouseClickedTableClientes(MouseEvent event) {
+    private void onMouseClickedTableClientes(MouseEvent event
+    ) {
         Mecanico mecanico = tvMecanicos.getSelectionModel().getSelectedItem();
 
         if (mecanico != null) {
@@ -184,6 +214,43 @@ public class AdministrarMecanicosController implements Initializable {
         fieldApellidos.setText(m.getApellidos());
         fieldFecha.setValue(m.getFecha_Nacimiento().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
         choiceOcupado.setValue(null);
+    }
+
+    private boolean comprobarCampos() {
+        fieldDNI.setStyle(null);
+        fieldNombre.setStyle(null);
+        fieldApellidos.setStyle(null);
+        fieldTelefono.setStyle(null);
+        fieldFecha.setStyle(null);
+        choiceOcupado.setStyle(null);
+
+        boolean campos = true;
+        if (fieldDNI.getText().isEmpty()) {
+            fieldDNI.setStyle("-fx-border-color: red;");
+            campos = false;
+        }
+        if (fieldNombre.getText().isEmpty()) {
+            fieldNombre.setStyle("-fx-border-color: red;");
+            campos = false;
+        }
+        if (fieldApellidos.getText().isEmpty()) {
+            fieldApellidos.setStyle("-fx-border-color: red;");
+            campos = false;
+        }
+        if (fieldTelefono.getText().isEmpty()) {
+            fieldTelefono.setStyle("-fx-border-color: red;");
+            campos = false;
+        }
+        if (fieldFecha.getValue() == null) {
+            fieldFecha.setStyle("-fx-border-color: red;");
+            campos = false;
+        }
+        if (choiceOcupado.getValue() == null) {
+            choiceOcupado.setStyle("-fx-border-color: red;");
+            campos = false;
+        }
+
+        return campos;
     }
 
 }

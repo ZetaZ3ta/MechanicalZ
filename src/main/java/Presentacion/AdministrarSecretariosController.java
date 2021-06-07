@@ -4,6 +4,7 @@ import Aplicacion.AplicacionException;
 import Aplicacion.GestorEscenas;
 import Aplicacion.LogicSecretario;
 import Aplicacion.Modelo.Secretario;
+import Aplicacion.Reglas;
 import java.io.IOException;
 import java.net.URL;
 import java.time.Instant;
@@ -66,18 +67,34 @@ public class AdministrarSecretariosController implements Initializable {
     }
 
     @FXML
-    private void btnAñadirAction(ActionEvent event) {
-        Instant instant = Instant.from(fieldFecha.getValue().atStartOfDay(ZoneId.systemDefault()));
-        Date date = Date.from(instant);
-        try {
-            Secretario s = new Secretario(fieldDNI.getText(), fieldNombre.getText(), fieldApellidos.getText(), Integer.parseInt(fieldTelefono.getText()), date);
-            LogicSecretario.añadir(s);
+    private void btnAñadirAction(ActionEvent event) throws AplicacionException {
 
-            mostrarSecretarios();
-            limpiarCampos();
-        } catch (AplicacionException ex) {
-            Logger.getLogger(AdministrarClientesController.class.getName()).log(Level.SEVERE, null, ex);
+        if (comprobarCampos()) {
+            String msgDNI = Reglas.DNI(fieldDNI.getText());
+            String msgTLF = Reglas.telefono(fieldTelefono.getText());
+            if (msgDNI.equals("") && msgTLF.equals("")) {
+                Instant instant = Instant.from(fieldFecha.getValue().atStartOfDay(ZoneId.systemDefault()));
+                Date date = Date.from(instant);
+                try {
+                    Secretario s = new Secretario(fieldDNI.getText(), fieldNombre.getText(), fieldApellidos.getText(), Integer.parseInt(fieldTelefono.getText()), date);
+                    LogicSecretario.añadir(s);
+
+                    mostrarSecretarios();
+                    limpiarCampos();
+                } catch (AplicacionException ex) {
+                    Logger.getLogger(AdministrarClientesController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+
+            } else {
+                if (!msgDNI.equals("")) {
+                    mostrarError(msgDNI);
+                }
+                if (!msgTLF.equals("")) {
+                    mostrarError(msgTLF);
+                }
+            }
         }
+
     }
 
     @FXML
@@ -94,15 +111,30 @@ public class AdministrarSecretariosController implements Initializable {
 
     @FXML
     private void btnActualizarAction(ActionEvent event) throws AplicacionException {
+
         Secretario s1 = tvSecretarios.getSelectionModel().getSelectedItem();
 
         if (s1 != null) {
-            Instant instant = Instant.from(fieldFecha.getValue().atStartOfDay(ZoneId.systemDefault()));
-            Date date = Date.from(instant);
-            Secretario s2 = new Secretario(fieldDNI.getText(), fieldNombre.getText(), fieldApellidos.getText(), Integer.parseInt(fieldTelefono.getText()), date);
 
-            LogicSecretario.actualizar(s2);
-            mostrarSecretarios();
+            if (comprobarCampos()) {
+                String msgTLF = Reglas.telefono(fieldTelefono.getText());
+                if (msgTLF.equals("")) {
+
+                    Instant instant = Instant.from(fieldFecha.getValue().atStartOfDay(ZoneId.systemDefault()));
+                    Date date = Date.from(instant);
+                    Secretario s2 = new Secretario(fieldDNI.getText(), fieldNombre.getText(), fieldApellidos.getText(), Integer.parseInt(fieldTelefono.getText()), date);
+
+                    LogicSecretario.actualizar(s2);
+                    mostrarSecretarios();
+
+                } else {
+                    if (!msgTLF.equals("")) {
+                        mostrarError(msgTLF);
+                    }
+                }
+
+            }
+
         } else {
             mostrarError("Selecciona un secretario!");
         }
@@ -160,6 +192,38 @@ public class AdministrarSecretariosController implements Initializable {
         fieldApellidos.setText(s.getApellidos());
         fieldTelefono.setText(String.valueOf(s.getTelefono()));
         fieldFecha.setValue(s.getFecha_Nacimiento().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+    }
+
+    private boolean comprobarCampos() {
+        fieldDNI.setStyle(null);
+        fieldNombre.setStyle(null);
+        fieldApellidos.setStyle(null);
+        fieldTelefono.setStyle(null);
+        fieldFecha.setStyle(null);
+
+        boolean campos = true;
+        if (fieldDNI.getText().isEmpty()) {
+            fieldDNI.setStyle("-fx-border-color: red;");
+            campos = false;
+        }
+        if (fieldNombre.getText().isEmpty()) {
+            fieldNombre.setStyle("-fx-border-color: red;");
+            campos = false;
+        }
+        if (fieldApellidos.getText().isEmpty()) {
+            fieldApellidos.setStyle("-fx-border-color: red;");
+            campos = false;
+        }
+        if (fieldTelefono.getText().isEmpty()) {
+            fieldTelefono.setStyle("-fx-border-color: red;");
+            campos = false;
+        }
+        if (fieldFecha.getValue() == null) {
+            fieldFecha.setStyle("-fx-border-color: red;");
+            campos = false;
+        }
+
+        return campos;
     }
 
 }
