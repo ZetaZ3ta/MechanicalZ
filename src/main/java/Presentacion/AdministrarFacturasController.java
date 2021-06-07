@@ -64,11 +64,10 @@ public class AdministrarFacturasController implements Initializable {
 
             for (Cliente clientes : listaClientes) {
                 choiceCliente.getItems().add(clientes.getDNI());
-                //choiceCliente.getItems().add(clientes.getNombre() + " " + clientes.getApellidos());
             }
 
             for (Secretario secretarios : listaSecretarios) {
-                choiceSecretario.getItems().add(secretarios.getNombre() + " " + secretarios.getApellidos());
+                choiceSecretario.getItems().add(secretarios.getDNI());
             }
 
             mostrarFacturas();
@@ -79,9 +78,9 @@ public class AdministrarFacturasController implements Initializable {
             colIVA.setCellValueFactory(new PropertyValueFactory<>("IVA"));
             colTotal.setCellValueFactory(new PropertyValueFactory<>("Total"));
             colCliente.setCellValueFactory(new PropertyValueFactory<Cliente, String>("Cliente"));
-            colSecretario.setCellValueFactory(new PropertyValueFactory<>("Secretario"));
+            colSecretario.setCellValueFactory(new PropertyValueFactory<Secretario, String>("Secretario"));
 
-        } catch (Exception ex) {
+        } catch (AplicacionException ex) {
             mostrarError("Error al inicializar: " + ex.toString());
             System.exit(1);
         }
@@ -188,10 +187,8 @@ public class AdministrarFacturasController implements Initializable {
         fieldID.setText(String.valueOf(u.getID()));
         fieldDescripcion.setText(u.getDescripcion());
         fieldPrecio.setText(String.valueOf(u.getPrecio()));
-        // choiceCliente.setValue(u.getCliente().getNombre() + u.getCliente().getApellidos());
         choiceCliente.setValue(u.getCliente().getDNI());
-        //choiceSecretario.setValue(u.getSecretario().getNombre() + u.getCliente().getApellidos());
-        choiceSecretario.setValue(u.getSecretario());
+        choiceSecretario.setValue(u.getSecretario().getDNI());
     }
 
 }

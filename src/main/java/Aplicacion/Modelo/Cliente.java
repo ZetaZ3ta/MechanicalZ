@@ -99,7 +99,7 @@ public class Cliente {
 
     @Override
     public String toString() {
-        return "Cliente{" + "DNI=" + DNI + ", nombre=" + nombre + ", apellidos=" + apellidos + ", Direccion=" + Direccion + ", Telefono=" + Telefono + ", Fecha_Nacimiento=" + Fecha_Nacimiento + '}';
+        return DNI;
     }
 
 }

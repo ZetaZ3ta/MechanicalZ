@@ -94,7 +94,7 @@ public class Mecanico {
 
     @Override
     public String toString() {
-        return "Mecanico{" + "DNI=" + DNI + ", nombre=" + nombre + ", apellidos=" + apellidos + ", Telefono=" + Telefono + ", Fecha_Nacimiento=" + Fecha_Nacimiento + ", Ocupado=" + Ocupado + '}';
+        return DNI;
     }
 
 }

@@ -83,7 +83,7 @@ public class Secretario {
 
     @Override
     public String toString() {
-        return "Secretario{" + "DNI=" + DNI + ", nombre=" + nombre + ", apellidos=" + apellidos + ", Telefono=" + Telefono + ", Fecha_Nacimiento=" + Fecha_Nacimiento + '}';
+        return DNI;
     }
 
 }
