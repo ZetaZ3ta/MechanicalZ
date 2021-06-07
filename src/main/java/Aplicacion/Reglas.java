@@ -106,4 +106,33 @@ public class Reglas {
         }
         return msg;
     }
+
+    public static String telefono(String tlf) {
+        String error = "";
+        if (tlf.length() != 9) {
+            error = "El numero debe tener 9 digitos!";
+        }
+
+        return error;
+    }
+
+    public static String bastidor(String bastidor) {
+        String error = "";
+
+        if (bastidor.length() != 17) {
+            error = "El bastidor debe tener 17 digitos!";
+        }
+
+        return error;
+    }
+
+    public static String matricula(String matricula) {
+        String error = "";
+        Pattern patternMatricula = Pattern.compile("^\\d{4}[A-Z]{3}");
+        if (!patternMatricula.matcher(matricula).find()) {
+            error = "Formato de la matricula incorrecto";
+        }
+
+        return error;
+    }
 }

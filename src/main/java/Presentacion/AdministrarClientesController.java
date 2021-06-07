@@ -4,6 +4,7 @@ import Aplicacion.AplicacionException;
 import Aplicacion.GestorEscenas;
 import Aplicacion.LogicCliente;
 import Aplicacion.Modelo.Cliente;
+import Aplicacion.Reglas;
 import java.io.IOException;
 import java.net.URL;
 import java.time.Instant;
@@ -68,25 +69,31 @@ public class AdministrarClientesController implements Initializable {
 
     @FXML
     private void btnAñadirAction(ActionEvent event) throws AplicacionException {
-        //if (comprobarCampos()) {
-        //String msg = Reglas.DNI(fieldDNI.getText());
-        //      if (msg.equals("")) {
-        Instant instant = Instant.from(fieldFechaNacimiento.getValue().atStartOfDay(ZoneId.systemDefault()));
-        Date date = Date.from(instant);
-        try {
-            System.out.println(fieldDNI.getText());
-            Cliente c = new Cliente(fieldDNI.getText(), fieldNombre.getText(), fieldApellidos.getText(), fieldDireccion.getText(), Integer.parseInt(fieldTelefono.getText()), date);
-            LogicCliente.añadir(c);
+        if (comprobarCampos()) {
+            String msgDNI = Reglas.DNI(fieldDNI.getText());
+            String msgTLF = Reglas.telefono(fieldTelefono.getText());
+            if (msgDNI.equals("") && msgTLF.equals("")) {
+                Instant instant = Instant.from(fieldFechaNacimiento.getValue().atStartOfDay(ZoneId.systemDefault()));
+                Date date = Date.from(instant);
+                try {
+                    System.out.println(fieldDNI.getText());
+                    Cliente c = new Cliente(fieldDNI.getText(), fieldNombre.getText(), fieldApellidos.getText(), fieldDireccion.getText(), Integer.parseInt(fieldTelefono.getText()), date);
+                    LogicCliente.añadir(c);
 
-            mostrarClientes();
-            limpiarCampos();
-        } catch (AplicacionException ex) {
-            Logger.getLogger(AdministrarClientesController.class.getName()).log(Level.SEVERE, null, ex);
+                    mostrarClientes();
+                    limpiarCampos();
+                } catch (AplicacionException ex) {
+                    Logger.getLogger(AdministrarClientesController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            } else {
+                if (!msgDNI.equals("")) {
+                    mostrarError(msgDNI);
+                }
+                if (!msgTLF.equals("")) {
+                    mostrarError(msgTLF);
+                }
+            }
         }
-//        } else {
-//            mostrarError(msg);
-//        }
-        //    }
 
     }
 
@@ -149,15 +156,6 @@ public class AdministrarClientesController implements Initializable {
     private void mostrarError(String txt) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("ERROR");
-        alert.setContentText(txt);
-        alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
-
-        alert.showAndWait();
-    }
-
-    private void mostrarInfo(String txt) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Info:");
         alert.setContentText(txt);
         alert.getDialogPane().setMinHeight(Region.USE_PREF_SIZE);
 
