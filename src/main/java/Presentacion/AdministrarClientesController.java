@@ -116,28 +116,39 @@ public class AdministrarClientesController implements Initializable {
         Cliente c1 = tvClientes.getSelectionModel().getSelectedItem();
 
         if (c1 != null) {
-            Instant instant = Instant.from(fieldFechaNacimiento.getValue().atStartOfDay(ZoneId.systemDefault()));
-            Date date = Date.from(instant);
+            if (comprobarCampos()) {
+                String msgTLF = Reglas.telefono(fieldTelefono.getText());
+                if (msgTLF.equals("")) {
+                    Instant instant = Instant.from(fieldFechaNacimiento.getValue().atStartOfDay(ZoneId.systemDefault()));
+                    Date date = Date.from(instant);
 
-            Cliente c2 = new Cliente(fieldDNI.getText(), fieldNombre.getText(), fieldApellidos.getText(), fieldDireccion.getText(), Integer.parseInt(fieldTelefono.getText()), date);
+                    Cliente c2 = new Cliente(fieldDNI.getText(), fieldNombre.getText(), fieldApellidos.getText(), fieldDireccion.getText(), Integer.parseInt(fieldTelefono.getText()), date);
 
-            LogicCliente.actualizar(c2);
-            mostrarClientes();
+                    LogicCliente.actualizar(c2);
+                    mostrarClientes();
+                } else {
+                    if (!msgTLF.equals("")) {
+                        mostrarError(msgTLF);
+                    }
+                }
+            }
+
         } else {
             mostrarError("Selecciona un cliente!");
         }
-
     }
 
     @FXML
-    private void btnLimpiarAction(ActionEvent event) {
+    private void btnLimpiarAction(ActionEvent event
+    ) {
 
         limpiarCampos();
 
     }
 
     @FXML
-    private void onMouseClickedTableClientes(MouseEvent event) {
+    private void onMouseClickedTableClientes(MouseEvent event
+    ) {
 
         Cliente cliente = tvClientes.getSelectionModel().getSelectedItem();
 

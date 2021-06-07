@@ -127,10 +127,9 @@ public class AdministrarMotosController implements Initializable {
 
         if (m1 != null) {
             if (comprobarCampos()) {
-                String msgBastidor = Reglas.bastidor(fieldBastidor.getText());
                 String msgMatricula = Reglas.matricula(fieldMatricula.getText());
 
-                if (msgBastidor.equals("") && msgMatricula.equals("")) {
+                if (msgMatricula.equals("")) {
 
                     Cliente c = LogicCliente.getCliente((String) choiceDueño.getSelectionModel().getSelectedItem());
                     Moto m2 = new Moto(fieldBastidor.getText(), fieldMarca.getText(), fieldModelo.getText(), fieldMatricula.getText(), Integer.parseInt(fieldKM.getText()), c);
@@ -138,9 +137,6 @@ public class AdministrarMotosController implements Initializable {
                     LogicMoto.actualizar(m2);
                     mostrarMotos();
                 } else {
-                    if (!msgBastidor.equals("")) {
-                        mostrarError(msgBastidor);
-                    }
                     if (!msgMatricula.equals("")) {
                         mostrarError(msgMatricula);
                     }
