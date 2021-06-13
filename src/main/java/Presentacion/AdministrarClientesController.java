@@ -139,16 +139,14 @@ public class AdministrarClientesController implements Initializable {
     }
 
     @FXML
-    private void btnLimpiarAction(ActionEvent event
-    ) {
+    private void btnLimpiarAction(ActionEvent event) {
 
         limpiarCampos();
 
     }
 
     @FXML
-    private void onMouseClickedTableClientes(MouseEvent event
-    ) {
+    private void onMouseClickedTableClientes(MouseEvent event) {
 
         Cliente cliente = tvClientes.getSelectionModel().getSelectedItem();
 
