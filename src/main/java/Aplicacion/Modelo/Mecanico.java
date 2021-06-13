@@ -23,6 +23,7 @@ public class Mecanico {
 
     @Column
     private String apellidos;
+    
     @Column
     private int Telefono;
 

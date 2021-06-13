@@ -213,7 +213,11 @@ public class AdministrarMecanicosController implements Initializable {
         fieldTelefono.setText(String.valueOf(m.getTelefono()));
         fieldApellidos.setText(m.getApellidos());
         fieldFecha.setValue(m.getFecha_Nacimiento().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-        choiceOcupado.setValue(null);
+        if (m.isOcupado()) {
+            choiceOcupado.setValue("Si");
+        } else {
+            choiceOcupado.setValue("No");
+        }
     }
 
     private boolean comprobarCampos() {

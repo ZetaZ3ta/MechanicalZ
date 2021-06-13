@@ -7,19 +7,15 @@ import java.util.regex.Pattern;
  * @author Victor
  */
 public class Reglas {
-//Metode per verificar DNI
 
     public static String DNI(String DNI) throws AplicacionException {
         String msg = "";
-        //Regla per al format del DNI
         Pattern patternDNI = Pattern.compile("[0-9]{8}[A-Z]");
 
-        //Es comprova el format del DNI
         if (!patternDNI.matcher(DNI).find()) {
             msg = "Formato del DNI incorrecto";
         } else {
 
-            //Si el DNI te un format correcte es pasa a comprovar que la lletra del DNI es correcte
             char lletraDNI = Character.toUpperCase(DNI.charAt(DNI.length() - 1));
             int NumDNI = Integer.parseInt(DNI.substring(0, DNI.length() - 1));
             int resto = NumDNI % 23;
@@ -128,7 +124,7 @@ public class Reglas {
 
     public static String matricula(String matricula) {
         String error = "";
-        Pattern patternMatricula = Pattern.compile("^\\d{4}[A-Z]{3}");
+        Pattern patternMatricula = Pattern.compile("[0-9]{4}[A-Z]{3}");
         if (!patternMatricula.matcher(matricula).find()) {
             error = "Formato de la matricula incorrecto";
         }
